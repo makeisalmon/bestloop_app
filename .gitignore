@@ -45,4 +45,4 @@ app.*.map.json
 # debug.dart will not be committed. This way devs can
 # modify it for testing purposes without conflicts showing up
 # upon commit.
-/lib/debug.dart
+lib/debug.dart

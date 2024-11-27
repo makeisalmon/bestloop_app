@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_super_parameters
 
 import 'dart:math';
+import 'package:bestloop_app/tag_widget.dart';
 import 'package:flutter/material.dart';
 
 /// Model class representing a Loop object
@@ -44,9 +45,9 @@ class _LoopCardState extends State<LoopCard>
       },
       child: AnimatedContainer(
         height:
-            _isExpanded ? 425.0 : 87.0, // Expands or collapses based on state
-        duration: const Duration(milliseconds: 1000),
-        curve: Curves.elasticOut,
+            _isExpanded ? 180.0 : 87.0, // Expands or collapses based on state
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.ease,
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
         decoration: BoxDecoration(
           color: const Color.fromRGBO(110, 100, 100, 0.5),
@@ -80,7 +81,7 @@ class _LoopCardState extends State<LoopCard>
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 16.0),
-                    color: Colors.black.withOpacity(0.5),
+                    //color: Colors.black.withOpacity(0.5),
                     child: Text(
                       widget.loop.title,
                       style: Theme.of(context).textTheme.bodyLarge,
@@ -90,13 +91,20 @@ class _LoopCardState extends State<LoopCard>
                           : TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(height:4),
                   Container(
                     margin: const EdgeInsets.only(bottom: 8.0),
-                    color: Colors.black.withOpacity(0.5),
+                    //color: Colors.black.withOpacity(0.5),
                     child: Text(
                       widget.loop.subtitle,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
+                  ),
+                  SmallTag(
+                    tags: ['Genre Tag', 'Synth', 'BPM 140', "Industrial", "Ambient"], // Example tags
+                    onDeleteTag: (index) {
+                      print('Deleted tag at index: $index');
+                    },
                   ),
                 ],
               ),

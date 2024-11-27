@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: TextTheme(
           bodySmall: const TextStyle(
-            fontSize: 8,
+            fontSize: 10,
             color: Color(0xFFFFFFFF),
             fontWeight: FontWeight.bold,
             height: 1.0,

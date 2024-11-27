@@ -17,7 +17,7 @@ class SmallTag extends StatefulWidget {
   SmallTag({
     required this.tags,
     this.minTagViewHeight = 0,
-    this.maxTagViewHeight = 150,
+    this.maxTagViewHeight = 16,
     this.tagBackgroundColor = Colors.transparent, 
     this.selectedTagBackgroundColor = Colors.lightBlue,
     this.deletableTag = true,
@@ -80,7 +80,7 @@ class _SmallTagState extends State<SmallTag> {
         });
       },
       child: Container(
-        height: 24.0, // Set the height to 24 pixels
+        height: 14.0, // Set the height to 24 pixels
         padding: const EdgeInsets.symmetric(horizontal: 4.0), // Adjust left padding of text
         decoration: BoxDecoration(
           border: const GradientBoxBorder(

@@ -7,8 +7,15 @@ class ArtistInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 180, 
-      color: Colors.grey.withOpacity(0.1),
+      //color: Colors.grey.withOpacity(0.1),
       padding: const EdgeInsets.all(16.0),
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: const NetworkImage('https://www.pixelstalk.net/wp-content/uploads/2016/07/3840x2160-Images-Free-Download.jpg'),
+            opacity: 0.3,
+            fit: BoxFit.cover, // Adjust how the image fits the box
+        ),
+      ),
       child: Stack(
         children: [
           Positioned(
@@ -18,7 +25,7 @@ class ArtistInfo extends StatelessWidget {
               width: 96, 
               height: 96, 
               decoration: const BoxDecoration(
-                color: Colors.black,
+                color: Colors.grey,
                 shape: BoxShape.circle,
               ),
             ),

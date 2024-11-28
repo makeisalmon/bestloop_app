@@ -1,5 +1,6 @@
 import 'package:bestloop_app/debug.dart';
 import 'package:flutter/material.dart';
+import 'package:bestloop_app/loop_upload.dart';
 
 void main() {
   runApp(const MyApp());
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
-      home: const DebugPage(),
+      home: const Upload(),
     );
   }
 }

@@ -63,7 +63,15 @@ flutter:
   assets:
     - assets/waveform.svg
     - assets/share.svg
+    - assets/pink.svg
     - assets/nonC.svg
+    - assets/IMG_4099.jpg
+    - assets/me.JPG
+    - assets/leavingroom.jpg
+    - assets/wavfiles/dog.wav
+    - assets/wavfiles/Unsure.wav
+    - assets/wavfiles/Carhood.wav
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

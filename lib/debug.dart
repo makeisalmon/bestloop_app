@@ -1,4 +1,5 @@
 import 'package:bestloop_app/loopcard.dart';
+import 'package:bestloop_app/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:bestloop_app/artist_Info.dart';
 import 'package:bestloop_app/tag_widget.dart'; // Import the SmallTag widget
@@ -49,6 +50,9 @@ class DebugPage extends StatelessWidget {
           LoopCard(loop: Loop(title: "Grated Cheese (Hyper)", subtitle: "TheRealArtist ∙ Baton Rouge", imageUrl: "https://play-lh.googleusercontent.com/YcD6umM0uHwFsmO7DyibaZSVhJw1hak1Y6-XErHeyVqNYuAlxqyraTC9HEZpxTWZCMY=w480-h960-rw")),
           LoopCard(loop: Loop(title: "The Real Drop (Extra Freaky Edition)", subtitle: "TheRealArtist ∙ Baton Rouge", imageUrl: "https://th.bing.com/th/id/OIP.IDvkCPhzhQdJkCAqZIIFXwHaEK?rs=1&pid=ImgDetMain")),
           LoopCard(loop: Loop(title: "Grated Cheese (Hyper)", subtitle: "clarinetconnoisseur ∙ New Orleans", imageUrl: "https://wordsmith.org/words/images/connoisseur_large.jpg")),
+          BestLoopButton(text: "Create an Account",),
+          SizedBox(height: 16,),
+          BestLoopButton(text: "Login", gradient: ThemeColors.secondaryGradient,),
         ],
       ),
     );

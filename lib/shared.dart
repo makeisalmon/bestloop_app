@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
-/*
-  Stores the commonly used brand colors for the app and some preset gradients to reduce code
-  redundancy. Some widgets will still need to construct their own LinearGradient for special
-  cases.
-*/
+///  Stores the commonly used brand colors for the app and some preset gradients to reduce code
+///  redundancy. Some widgets will still need to construct their own LinearGradient for special
+///  cases.
 class ThemeColors {
   static const primaryA = Color(0xFFFF008C);
   static const primaryB = Color(0xFFB500B5);
@@ -24,16 +22,18 @@ class ThemeColors {
   );
 }
 
-/*
-  Standard brand button for the app. Use this widget similarly to how you would use MaterialButton.
-*/
+
+/// Standard brand button for the app. Takes an optional icon parameter to display to the left of
+/// the text.
 class BestLoopButton extends StatelessWidget {
   final String text;
   final LinearGradient gradient;
   final Icon? icon;
+  final VoidCallback onPressed;
   const BestLoopButton({
     super.key,
     required this.text,
+    required this.onPressed,
     this.icon,
     this.gradient = ThemeColors.primaryGradient,
   });
@@ -49,16 +49,29 @@ class BestLoopButton extends StatelessWidget {
             
           ),
           child: TextButton(
-            onPressed: () {
-              print('Button tapped!');
-            },
+            onPressed: onPressed,
             style: TextButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 22),
             ),
-            child: Text(text, style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-              height: -.1, // A slight text offset gives better weight to the button
-              fontWeight: FontWeight.bold,
-            )),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                /* display optional icon property if present. May override icon color in the future
+                to always be white. */
+                Container(
+                  child: icon == null
+                      ? const SizedBox()
+                      : Padding(
+                          padding: EdgeInsets.fromLTRB(0,0,8,0),
+                          child: icon,
+                        ),
+                ),
+                Text(text, style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  height: -.1, // A slight text offset gives better weight to the button
+                  fontWeight: FontWeight.bold,
+                )),
+              ],
+            ),
           ),
         ),
       ),

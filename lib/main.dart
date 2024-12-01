@@ -1,4 +1,8 @@
 import 'package:bestloop_app/debug.dart';
+import 'package:bestloop_app/pages/create_page.dart';
+import 'package:bestloop_app/pages/discover_page.dart';
+import 'package:bestloop_app/pages/leaderboard_page.dart';
+import 'package:bestloop_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,16 +21,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      
       theme: ThemeData(
         // This is the theme of your application.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(
           brightness: Brightness.dark,
-          surface: const Color(0)
+          surface: const Color(0),
         ),
         useMaterial3: true,
         textTheme: TextTheme(
           bodySmall: const TextStyle(
-            fontSize: 10,
+            fontSize: 8,
             color: Color(0xFFFFFFFF),
             fontWeight: FontWeight.bold,
             height: 1.0,
@@ -46,15 +51,32 @@ class MyApp extends StatelessWidget {
             fontSize: 20,
             height: 1.0,
           )
-        )
+        ),
+        navigationBarTheme: NavigationBarThemeData(
+          backgroundColor: Colors.black,
+          indicatorColor: Colors.transparent,
+          iconTheme: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) {
+              return const IconThemeData(color: Colors.white);
+            }
+            return const IconThemeData(color: Colors.grey);
+          }),
+          labelTextStyle: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) {
+              return const TextStyle(color: Colors.white);
+            }
+            return const TextStyle(color: Colors.grey);
+          }),
+        ),
       ),
-      home: const DebugPage(),
+      home: const GlobalScaffold(title: "Home"),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+/// This is the scaffold which contains the icons TODO: Add better documentation
+class GlobalScaffold extends StatefulWidget {
+  const GlobalScaffold({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -68,63 +90,54 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<GlobalScaffold> createState() => _GlobalScaffoldState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _GlobalScaffoldState extends State<GlobalScaffold> {
+  int currentPageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+      bottomNavigationBar: NavigationBar(
+        height: 64,
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        backgroundColor: Colors.grey.shade900,
+        indicatorColor: Colors.transparent,
+        selectedIndex: currentPageIndex,
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.leaderboard),
+            icon: Icon(Icons.leaderboard_outlined),
+            label: 'Leaderboard',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.bolt),
+            icon: Icon(Icons.bolt_outlined), //TODO: The icon here is broken and needs changing.
+            label: 'Discover',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.person),
+            icon: Icon(Icons.person_outline),
+            label: 'Profile',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.upload_rounded),
+            icon: Icon(Icons.upload_outlined),
+            label: 'Create',
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Container(
-              height:256,
-              color: Color(0xFF232323),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Header Text',
-                    style: Theme.of(context).textTheme.displayMedium,
-                  ),
-                  Text(
-                    'This is a static, fixed-height area for testing widgets.',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ],
-              ),
-            ),
-            Expanded( // Forces widget to take up remaining screen space
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                children: [
-                  Center(
-                    child: Column(
-                      children: [
-                        Text("Bolded Header",
-                          style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text("This is a scrollable space for testing widgets.",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 9000, width: 128,)
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+      body: <Widget>[ //TODO: Implement
+        const LeaderboardPage(),
+        const DiscoverPage(),
+        const ProfilePage(),
+        const CreatePage(),
+      ][currentPageIndex],
     );
   }
 }

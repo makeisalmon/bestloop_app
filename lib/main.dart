@@ -1,7 +1,9 @@
 import 'package:bestloop_app/debug.dart';
+import 'package:bestloop_app/user_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:bestloop_app/loop_upload.dart';
 import 'package:bestloop_app/brain_rot.dart';
+import 'package:bestloop_app/user_Page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
-      home: Rotting(),
+      home: UserPage(),
     );
   }
 }

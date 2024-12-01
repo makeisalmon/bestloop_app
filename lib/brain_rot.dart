@@ -2,12 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'loop_files/loop_data.dart'; // Import the common LoopData class
-import 'loop_files/carhood.dart' as carhood;
-import 'loop_files/dog.dart' as dog;
-import 'loop_files/unsure.dart' as unsure;
+import 'loop_files/loop_data_dictionary.dart'; // Import the dictionary
 import 'package:bestloop_app/tag_widget.dart';
-
-/*to add, use carhood as baseline, make new dart file, import it above, then put it in current loop data. be sure to update assets*/
 
 class Rotting extends StatefulWidget {
   @override
@@ -16,23 +12,32 @@ class Rotting extends StatefulWidget {
 
 class _Rotting extends State<Rotting> {
   late LoopData currentLoopData;
+  late LoopData nextLoopData;
   final PageController _pageController = PageController();
-  final List<LoopData> loops = [
-    carhood.loopData,
-    dog.loopData,
-    unsure.loopData,
-  ];
+  final List<String> loopTitles = loopDataDictionary.keys.toList();
+  String? lastLoopTitle;
 
   @override
   void initState() {
     super.initState();
-    currentLoopData = carhood.loopData;
+    currentLoopData = loopDataDictionary['Chill Vibes']!;
+    nextLoopData = _getNextLoopData();
   }
 
-  void _loadRandomLoop() {
+  LoopData _getNextLoopData() {
     final random = Random();
+    String nextTitle;
+    do {
+      nextTitle = loopTitles[random.nextInt(loopTitles.length)];
+    } while (nextTitle == lastLoopTitle);
+    lastLoopTitle = nextTitle;
+    return loopDataDictionary[nextTitle]!;
+  }
+
+  void _loadNextLoop() {
     setState(() {
-      currentLoopData = loops[random.nextInt(loops.length)];
+      currentLoopData = nextLoopData;
+      nextLoopData = _getNextLoopData();
     });
   }
 
@@ -43,7 +48,7 @@ class _Rotting extends State<Rotting> {
         controller: _pageController,
         scrollDirection: Axis.vertical,
         onPageChanged: (index) {
-          _loadRandomLoop();
+          _loadNextLoop();
         },
         itemBuilder: (context, index) {
           return Stack(
@@ -119,62 +124,63 @@ class _Rotting extends State<Rotting> {
                       ),
                     ),
                   ),
-
-                  // Title and Artist Information
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          currentLoopData.loopTitle,
-                          style: TextStyle(fontSize: 24, color: Colors.white),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(
-                              top: 16.0, bottom: 8.0, left: 0.0, right: 12.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(right: 8.0),
-                                child: CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      currentLoopData.artistImagePath),
-                                ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Add SizedBox to move the text down
-                                    SizedBox(height: 10), // Adjust the height as needed
-                                    Text(
-                                      currentLoopData.artistName,
-                                      style: TextStyle(
-                                          fontSize: 18, color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Waveform Placeholder
-                  Container(
-                    height: 0,
-                    color: Colors.transparent,
-                    child: const Center(child: Text('Waveform Placeholder')),
-                  ),
                 ],
+              ),
+              // Waveform Placeholder
+              Container(
+                height: 0,
+                color: Colors.transparent,
+                child: const Center(child: Text('Waveform Placeholder')),
+              ),
+              // Title and Artist Information
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.6, // Adjust this value to position correctly
+                left: 8.0,
+                right: 8.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      currentLoopData.loopTitle,
+                      style: TextStyle(fontSize: 24, color: Colors.white),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          top: 16.0, bottom: 8.0, left: 0.0, right: 12.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(right: 8.0),
+                            child: CircleAvatar(
+                              backgroundImage: AssetImage(
+                                  currentLoopData.artistImagePath),
+                            ),
+                          ),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Add SizedBox to move the text down
+                                SizedBox(height: 10), // Adjust the height as needed
+                                Text(
+                                  currentLoopData.artistName,
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 margin: const EdgeInsets.only(top: 510.0, bottom: 0.0),
                 child: SmallTag(
-                  tags: ['Tag2', 'Tag3', 'NAUR'],
+                  tags: currentLoopData.tags,
                   onDeleteTag: (index) {
                     print('Deleted tag at index: $index');
                   },
@@ -213,7 +219,7 @@ class _Rotting extends State<Rotting> {
                   ],
                 ),
               ),
-              // Scrubber and SVG Placeholder
+              // Scrubber and Licensing Placeholder
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -221,11 +227,11 @@ class _Rotting extends State<Rotting> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // SVG Placeholder
+                    // Licensing Placeholder
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: SvgPicture.asset(
-                        currentLoopData.svgPath,
+                        currentLoopData.licensing,
                         width: 50,
                         height: 50,
                       ),

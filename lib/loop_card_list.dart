@@ -18,10 +18,10 @@ class LoopList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(0.0), // Outside container margin
-      padding: const EdgeInsets.all(4.0), // Inside container padding
+      padding: const EdgeInsets.all(8.0), // Inside container padding
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(24.0),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,15 +41,18 @@ class LoopList extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.grey[900],
-                borderRadius: BorderRadius.circular(16.0),
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(24.0),
               ),
-              child: ListView.builder(
-                padding: const EdgeInsets.all(8.0),
-                itemCount: loopDataList.length,
-                itemBuilder: (context, index) {
-                  return LoopCard(loopData: loopDataList[index]);
-                },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24.0),
+                child: ListView.builder(
+                  padding: const EdgeInsets.fromLTRB(8.0,4.0,8.0,0.0),
+                  itemCount: loopDataList.length,
+                  itemBuilder: (context, index) {
+                    return LoopCard(loopData: loopDataList[index]);
+                  },
+                ),
               ),
             ),
           ),

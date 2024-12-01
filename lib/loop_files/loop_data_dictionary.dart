@@ -30,7 +30,7 @@ final Map<String, LoopData> loopDataDictionary = {
     hasBeenOnLeaderboard: false,
     pathToWaveForm: 'assets/waveforms/dog_beats.png',
     dislikes: 20,
-    tags: ['dog', 'beats', 'fun'],
+    tags: ['dog', 'beats', 'fun', '+'],
     location: 'New Orleans',
     topComment: 'Woof! This is awesome!',
   ),

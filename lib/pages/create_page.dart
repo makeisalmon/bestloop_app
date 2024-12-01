@@ -4,8 +4,8 @@ import 'package:bestloop_app/artist_Info.dart';
 import 'package:bestloop_app/tag_widget.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
-class Upload extends StatelessWidget {
-  const Upload({super.key});
+class CreatePage extends StatelessWidget {
+  const CreatePage({super.key});
 
   @override
   Widget build(BuildContext context) {

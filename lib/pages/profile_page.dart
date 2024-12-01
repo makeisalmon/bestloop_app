@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'artist_info.dart';
-import 'loop_card_list.dart';
-import 'loop_files/loop_data.dart';
-import 'loop_files/loop_data_dictionary.dart'; // Import the dictionary
+import '../artist_info.dart';
+import '../loop_card_list.dart';
+import '../loop_files/loop_data.dart';
+import '../loop_files/loop_data_dictionary.dart'; // Import the dictionary
 
-class UserPage extends StatefulWidget {
-  const UserPage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  _UserPageState createState() => _UserPageState();
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _UserPageState extends State<UserPage> {
+class _ProfilePageState extends State<ProfilePage> {
   String _activeTab = "Favorites";
 
   void _setActiveTab(String tab) {
@@ -26,17 +26,29 @@ class _UserPageState extends State<UserPage> {
       body: Stack(
         children: [
           // Background image taking more space
-          Container(
-            height: MediaQuery.of(context).size.height / 2,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/IMG_6694 (1).jpg'), // Replace with your image asset
-                fit: BoxFit.cover,
-                opacity: 0.3,
+        Container(
+          height: MediaQuery.of(context).size.height / 2,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/IMG_6694 (1).jpg'), // Replace with your image asset
+              fit: BoxFit.cover,
+              opacity: .6, // Set opacity to 1 for the image to be fully visible
+            ),
+          ),
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.transparent, // Start with no color (transparent) at the top
+                  Colors.black, // Fade to black at the bottom with opacity
+                ],
+                stops: [0.0, .8], // Controls the transition area of the gradient
               ),
             ),
           ),
-          // Content
+        ),          // Content
           Column(
             children: [
               const SizedBox(height: 50), // Add some top padding

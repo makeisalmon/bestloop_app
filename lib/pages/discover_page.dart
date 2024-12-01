@@ -1,16 +1,16 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'loop_files/loop_data.dart'; // Import the common LoopData class
-import 'loop_files/loop_data_dictionary.dart'; // Import the dictionary
+import '../loop_files/loop_data.dart'; // Import the common LoopData class
+import '../loop_files/loop_data_dictionary.dart'; // Import the dictionary
 import 'package:bestloop_app/tag_widget.dart';
 
-class Rotting extends StatefulWidget {
+class DiscoverPage extends StatefulWidget {
   @override
   _Rotting createState() => _Rotting();
 }
 
-class _Rotting extends State<Rotting> {
+class _Rotting extends State<DiscoverPage> {
   late LoopData currentLoopData;
   late LoopData nextLoopData;
   final PageController _pageController = PageController();

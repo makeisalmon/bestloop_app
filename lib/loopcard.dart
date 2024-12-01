@@ -38,15 +38,15 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
       },
       child: AnimatedContainer(
         height: _isExpanded ? 170.0 : 89.0,
-        duration: const Duration(milliseconds: 500), // Faster animation
-        curve: Curves.easeInOut,
-        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+        duration: const Duration(milliseconds: 250), // Faster animation
+        curve: Curves.ease,
+        margin: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
         decoration: BoxDecoration(
-          color: _isExpanded ? const Color(0xFF4A004A) : const Color.fromARGB(255, 120, 2, 120).withOpacity(.8), // Less vibrant colors
+          color: _isExpanded ? const Color(0xFF4A004A) : const Color.fromARGB(255, 120, 2, 120).withOpacity(.6), // Less vibrant colors
           borderRadius: BorderRadius.circular(16.0),
           border: Border.all(
             width: 1.0,
-            color: widget.loopData.hasBeenOnLeaderboard ? Colors.yellow : Colors.yellow.withOpacity(0),
+            color: widget.loopData.hasBeenOnLeaderboard ? Colors.yellow.withOpacity(0.6) : Colors.yellow.withOpacity(0),
           ),
         ),
         /* Wrapping the contents in a scroll view suppresses the overflow warning. This is intended
@@ -137,53 +137,61 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
                           Container(
                             width: 51.0,
                             height: 24.0,
-                            margin: const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
+                            margin: const EdgeInsets.only(top: 10.0, right: 16.0, left: 16.0),
                             color: Colors.white.withOpacity(0.0),
-                            child: Row(
-                              children: [
-                                Container(
-                                  margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 1.5, left: 3.0),
-                                  width: 21.0,
-                                  height: 18.0,
-                                  color: Colors.white.withOpacity(0.0),
-                                  child: IconButton(
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    iconSize: 20.0,
-                                    icon: const Icon(
-                                      Icons.arrow_upward_rounded,
-                                      color: Colors.white,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.4),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Row(
+                                children: [
+                                  SizedBox(height:24),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 1.5, left: 3.0),
+                                    width: 21.0,
+                                    height: 18.0,
+                                    color: Colors.white.withOpacity(0.0),
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      iconSize: 20.0,
+                                      icon: const Icon(
+                                        Icons.arrow_upward_rounded,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _likeCount++;
+                                        });
+                                      },
                                     ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _likeCount++;
-                                      });
-                                    },
                                   ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 3.0, left: 1.5),
-                                  width: 21.0,
-                                  height: 18.0,
-                                  color: Colors.white.withOpacity(0.0),
-                                  child: IconButton(
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    iconSize: 20.0,
-                                    icon: const Icon(
-                                      Icons.arrow_downward_rounded,
-                                      color: Colors.white,
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 3.0, left: 1.5),
+                                    width: 21.0,
+                                    height: 18.0,
+                                    color: Colors.white.withOpacity(0.0),
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      iconSize: 20.0,
+                                      icon: const Icon(
+                                        Icons.arrow_downward_rounded,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _dislikeCount++;
+                                        });
+                                      },
                                     ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _dislikeCount++;
-                                      });
-                                    },
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
+                          const SizedBox(height: 2),
                           Row(
                             children: [
                               Container(

@@ -18,7 +18,8 @@ class LeaderboardPage extends StatelessWidget {
             onPressed: (){
               print("PREsseD!");
             },
-          )
+          ),
+          const BestLoopTickbox(),
         ],
       ),
     );

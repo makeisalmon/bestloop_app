@@ -84,8 +84,18 @@ class BestLoopTickbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        border: GradientBoxBorder(gradient: ThemeColors.primaryGradient),
+      child: InkWell(
+        onTap:(){print("Tapped");},
+        child: Padding(
+          padding: EdgeInsets.all(12), // Padding here ensures tappable space is 44 sq. px.
+          child: Container(
+            decoration: BoxDecoration(
+              border: const GradientBoxBorder(gradient: ThemeColors.primaryGradient, width: 2),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: SizedBox.square(dimension: 20,),
+          ),
+        ),
       ),
     );
   }

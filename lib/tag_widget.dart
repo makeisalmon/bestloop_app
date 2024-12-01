@@ -52,8 +52,11 @@ class _SmallTagState extends State<SmallTag> {
         maxHeight: widget.maxTagViewHeight,
       ),
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
+        child: Wrap(
+          alignment: WrapAlignment.start,
+          spacing: 6.0, // Adjust for spacing between entries horizontally
+          runSpacing: 4.0, // Adjust for vertical spacing between tags
+          direction: Axis.horizontal,
           children: buildTags(),
         ),
       ),
@@ -69,30 +72,30 @@ class _SmallTagState extends State<SmallTag> {
   }
 
   Widget createTag(int index, String tagTitle) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0), // Padding between tags
-      child: InkWell(
-        onTap: () {
-          setState(() {
-            selectedTagIndex = index;
-          });
-        },
-        child: Container(
-          height:20,
-          padding: const EdgeInsets.symmetric(horizontal: 8.0 ), // Padding inside the tag
-          decoration: BoxDecoration(
-            border: const GradientBoxBorder(
-              gradient: LinearGradient(colors: [Colors.pink, Colors.purple]),
-              width: 1, // Line width
-            ),
-            borderRadius: BorderRadius.circular(20), // Border radius
+    return InkWell(
+      onTap: () {
+        setState(() {
+          selectedTagIndex = index;
+          print(index);
+        });
+      },
+      child: Container(
+        height: 14.0, // Set the height to 24 pixels
+        padding: const EdgeInsets.symmetric(horizontal: 4.0), // Adjust left padding of text
+        decoration: BoxDecoration(
+          border: const GradientBoxBorder(
+            gradient: LinearGradient(colors: [Colors.pink, Colors.purple]),
+            width: 1, // Line width
           ),
-          child: Center(
-            child: Text(
-              tagTitle,
-              style: TextStyle(fontSize: 16, color: Colors.white), // Text style
-            ),
-          ),
+          borderRadius: BorderRadius.circular(26), // Amount of circleness
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            widget.tagTitle == null 
+              ? Text(tagTitle, style: Theme.of(context).textTheme.bodySmall)
+              : widget.tagTitle!(tagTitle),
+          ],
         ),
       ),
     );

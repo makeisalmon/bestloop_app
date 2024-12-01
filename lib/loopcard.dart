@@ -49,193 +49,168 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
             color: widget.loopData.hasBeenOnLeaderboard ? Colors.yellow : Colors.yellow.withOpacity(0),
           ),
         ),
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 71.0,
-                      width: 67.0,
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        image: DecorationImage(
-                          image: AssetImage(widget.loopData.imagePath),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: AnimatedOpacity(
-                        opacity: _isExpanded ? 1.0 : 0.0,
-                        duration: const Duration(milliseconds: 500),
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SvgPicture.asset(
-                            'assets/waveform.svg',
-                            height: 20.0,
-                            color: Colors.white, // Make the waveform solid white
-                            fit: BoxFit.contain,
+        /* Wrapping the contents in a scroll view suppresses the overflow warning. This is intended
+        because the content is meant to overflow during the expanding part of the animation. */
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 71.0,
+                        width: 67.0,
+                        margin: const EdgeInsets.all(8.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.0),
+                          image: DecorationImage(
+                            image: AssetImage(widget.loopData.imagePath),
+                            fit: BoxFit.cover,
                           ),
                         ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(top: 8.0),
-                            child: Text(
-                              widget.loopData.loopTitle,
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 20.0),
-                              maxLines: _isExpanded ? null : 1,
-                              overflow: _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+                        child: AnimatedOpacity(
+                          opacity: _isExpanded ? 1.0 : 0.0,
+                          duration: const Duration(milliseconds: 500),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: SvgPicture.asset(
+                              'assets/waveform.svg',
+                              height: 20.0,
+                              color: Colors.white, // Make the waveform solid white
+                              fit: BoxFit.contain,
                             ),
                           ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 12.0),
+                              child: Text(
+                                widget.loopData.loopTitle,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                                maxLines: _isExpanded ? null : 1,
+                                overflow: _isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 4.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    widget.loopData.artistName,
+                                    style: Theme.of(context).textTheme.bodyMedium,
+                                  ),
+                                  const SizedBox(width: 4.0),
+                                  const Text(
+                                    '•',
+                                    style: TextStyle(fontSize: 12.0, color: Colors.white),
+                                  ),
+                                  const SizedBox(width: 4.0),
+                                  Expanded(
+                                    child: Text(
+                                      widget.loopData.location,
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis, // Ensure text does not overflow
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            SmallTag(
+                              tags: widget.loopData.tags,
+                              maxTagViewHeight: _isExpanded ? 36 : 16,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Column(
+                        children: [
                           Container(
-                            margin: const EdgeInsets.only(bottom: 4.0),
+                            width: 51.0,
+                            height: 24.0,
+                            margin: const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
+                            color: Colors.white.withOpacity(0.0),
                             child: Row(
                               children: [
-                                Text(
-                                  widget.loopData.artistName,
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16.0),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 1.5, left: 3.0),
+                                  width: 21.0,
+                                  height: 18.0,
+                                  color: Colors.white.withOpacity(0.0),
+                                  child: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    iconSize: 20.0,
+                                    icon: const Icon(
+                                      Icons.arrow_upward_rounded,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _likeCount++;
+                                      });
+                                    },
+                                  ),
                                 ),
-                                const SizedBox(width: 4.0),
-                                const Text(
-                                  '•',
-                                  style: TextStyle(fontSize: 16.0, color: Colors.white),
-                                ),
-                                const SizedBox(width: 4.0),
-                                Expanded(
-                                  child: Text(
-                                    widget.loopData.location,
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16.0),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis, // Ensure text does not overflow
+                                Container(
+                                  margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 3.0, left: 1.5),
+                                  width: 21.0,
+                                  height: 18.0,
+                                  color: Colors.white.withOpacity(0.0),
+                                  child: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    iconSize: 20.0,
+                                    icon: const Icon(
+                                      Icons.arrow_downward_rounded,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _dislikeCount++;
+                                      });
+                                    },
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          SmallTag(
-                            tags: widget.loopData.tags,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                          width: 51.0,
-                          height: 24.0,
-                          margin: const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
-                          color: Colors.white.withOpacity(0.0),
-                          child: Row(
+                          Row(
                             children: [
                               Container(
-                                margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 1.5, left: 3.0),
+                                height: 12.0,
                                 width: 21.0,
-                                height: 18.0,
                                 color: Colors.white.withOpacity(0.0),
-                                child: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  iconSize: 20.0,
-                                  icon: const Icon(
-                                    Icons.arrow_upward_rounded,
-                                    color: Colors.white,
+                                child: Center(
+                                  child: Text(
+                                    '$_likeCount',
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                   ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _likeCount++;
-                                    });
-                                  },
                                 ),
                               ),
+                              const SizedBox(width: 3.0),
                               Container(
-                                margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 3.0, left: 1.5),
+                                height: 12.0,
                                 width: 21.0,
-                                height: 18.0,
                                 color: Colors.white.withOpacity(0.0),
-                                child: IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  iconSize: 20.0,
-                                  icon: const Icon(
-                                    Icons.arrow_downward_rounded,
-                                    color: Colors.white,
+                                child: Center(
+                                  child: Text(
+                                    '$_dislikeCount',
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                   ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _dislikeCount++;
-                                    });
-                                  },
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              height: 12.0,
-                              width: 21.0,
-                              color: Colors.white.withOpacity(0.0),
-                              child: Center(
-                                child: Text(
-                                  '$_likeCount',
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 3.0),
-                            Container(
-                              height: 12.0,
-                              width: 21.0,
-                              color: Colors.white.withOpacity(0.0),
-                              child: Center(
-                                child: Text(
-                                  '$_dislikeCount',
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          width: 51.0,
-                          height: 24.0,
-                          margin: const EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0),
-                          color: Colors.white.withOpacity(0.0),
-                          child: IconButton(
-                            padding: EdgeInsets.zero,
-                            constraints: const BoxConstraints(),
-                            iconSize: 20.0,
-                            icon: const Icon(
-                              Icons.comment,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              // Add comment functionality here
-                            },
-                          ),
-                        ),
-                        if (_isExpanded)
-                          Container(
-                            height: 12.0,
-                            width: 51.0,
-                            color: Colors.white.withOpacity(0.0),
-                            child: Center(
-                              child: Text(
-                                '${widget.loopData.comments}',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        if (_isExpanded)
                           Container(
                             width: 51.0,
                             height: 24.0,
@@ -246,79 +221,112 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
                               constraints: const BoxConstraints(),
                               iconSize: 20.0,
                               icon: const Icon(
-                                Icons.share,
+                                Icons.comment,
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                // Add share functionality here
+                                // Add comment functionality here
                               },
                             ),
                           ),
-                        if (_isExpanded)
-                          Container(
-                            width: 51.0,
-                            height: 24.0,
-                            margin: const EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0),
-                            color: Colors.white.withOpacity(0.0),
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              constraints: const BoxConstraints(),
-                              iconSize: 20.0,
-                              icon: Icon(
-                                Icons.download,
-                                color: widget.loopData.licensing == 'noshare' ? Colors.grey : Colors.white,
+                          if (_isExpanded)
+                            Container(
+                              height: 12.0,
+                              width: 51.0,
+                              color: Colors.white.withOpacity(0.0),
+                              child: Center(
+                                child: Text(
+                                  '${widget.loopData.comments}',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              onPressed: widget.loopData.licensing == 'noshare' ? null : () {
-                                // Add download functionality here
-                              },
                             ),
-                          ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            Positioned(
-              left: 8.0,
-              top: 87.0,
-              child: SvgPicture.asset(
-                widget.loopData.licensing,
-                height: 20.0,
-                alignment: Alignment.centerLeft,
-              ),
-            ),
-            if (_isExpanded)
-              Positioned(
-                right: 80.0,
-                top: 120.0,
-                child: Container(
-                  width: 230.0,
-                  padding: const EdgeInsets.all(4.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
-                     borderRadius: BorderRadius.circular(16.0),
-                ),
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 12.0,
-                      backgroundColor: Colors.white,
-                    ),
-                    const SizedBox(width: 8.0),
-                    Expanded(
-                      child: Text(
-                        widget.loopData.topComment,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                          if (_isExpanded)
+                            Container(
+                              width: 51.0,
+                              height: 24.0,
+                              margin: const EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0),
+                              color: Colors.white.withOpacity(0.0),
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                                iconSize: 20.0,
+                                icon: const Icon(
+                                  Icons.share,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {
+                                  // Add share functionality here
+                                },
+                              ),
+                            ),
+                          if (_isExpanded)
+                            Container(
+                              width: 51.0,
+                              height: 24.0,
+                              margin: const EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0),
+                              color: Colors.white.withOpacity(0.0),
+                              child: IconButton(
+                                padding: EdgeInsets.zero,
+                                constraints: const BoxConstraints(),
+                                iconSize: 20.0,
+                                icon: Icon(
+                                  Icons.download,
+                                  color: widget.loopData.licensing == 'noshare' ? Colors.grey : Colors.white,
+                                ),
+                                onPressed: widget.loopData.licensing == 'noshare' ? null : () {
+                                  // Add download functionality here
+                                },
+                              ),
+                            ),
+                        ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ],
+              ),
+              Positioned(
+                left: 8.0,
+                top: 87.0,
+                child: SvgPicture.asset(
+                  widget.loopData.licensing,
+                  height: 20.0,
+                  alignment: Alignment.centerLeft,
                 ),
               ),
-            ),
-          ],
+              if (_isExpanded)
+                Positioned(
+                  right: 80.0,
+                  top: 120.0,
+                  child: Container(
+                    width: 230.0,
+                    padding: const EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1),
+                       borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  child: Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 12.0,
+                        backgroundColor: Colors.white,
+                      ),
+                      const SizedBox(width: 8.0),
+                      Expanded(
+                        child: Text(
+                          widget.loopData.topComment,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

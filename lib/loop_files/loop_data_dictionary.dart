@@ -13,7 +13,7 @@ final Map<String, LoopData> loopDataDictionary = {
     hasBeenOnLeaderboard: true,
     pathToWaveForm: 'assets/waveforms/chill_vibes.png',
     dislikes: 10,
-    tags: ['chill', 'vibes', 'relax'],
+    tags: ['chill', 'vibes', 'relax', 'asdf', 'asdf', 'extremely long tag', 'shorter tag', 'short tag', 'vst'],
     location: 'Baton Rouge',
     topComment: 'This is so relaxing! my name is walter hartel white, i live at ',
   ),

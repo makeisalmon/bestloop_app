@@ -1,8 +1,12 @@
 import 'dart:math';
+import 'package:bestloop_app/main.dart';
+import 'package:bestloop_app/pages/discover_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'loop_files/loop_data.dart';
 import 'tag_widget.dart';
+
+const discoverPageIndex = 1;
 
 class LoopCard extends StatefulWidget {
   final LoopData loopData;
@@ -35,6 +39,9 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
         setState(() {
           _isExpanded = !_isExpanded;
         });
+        if (!_isExpanded) {
+          globalScaffoldKey.currentState?.updatePageIndex(discoverPageIndex);
+        }
       },
       child: AnimatedContainer(
         height: _isExpanded ? 170.0 : 89.0,

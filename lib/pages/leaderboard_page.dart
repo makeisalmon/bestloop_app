@@ -9,13 +9,18 @@ class LeaderboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Leaderboard'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Text("Leaderboard", style: Theme.of(context).textTheme.displayMedium),
+                ],
+              ),
+            ),
             Expanded(
               child: LoopList(
                 name: 'Top Loops',

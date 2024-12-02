@@ -50,6 +50,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final List<String> _keywords = audioKeywords;
   bool _isSearching = true;
+  final FocusNode _focusNode = FocusNode();
 
   final TextEditingController _controller = TextEditingController();
   List<String> _filteredKeywords = [];
@@ -58,6 +59,9 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     _controller.addListener(_filterKeywords);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
   }
 
   void _filterKeywords() {
@@ -88,6 +92,7 @@ class _SearchPageState extends State<SearchPage> {
                       borderRadius: BorderRadius.circular(22)
                     ),
                     child: TextField(
+                      focusNode: _focusNode,
                       controller: _controller,
                       decoration: const InputDecoration(
                         border: InputBorder.none,

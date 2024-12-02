@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   gradient_borders: ^1.0.1
   flutter_svg: ^1.0.3
-
+  animations: ^2.0.11
 
 dev_dependencies:
   flutter_test:

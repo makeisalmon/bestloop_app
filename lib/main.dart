@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:bestloop_app/pages/discover_page.dart';
 import 'package:bestloop_app/debug.dart';
 import 'package:bestloop_app/pages/create_page.dart';
@@ -75,11 +76,12 @@ class MyApp extends StatelessWidget {
           }),
         ),
       ),
-      home: const GlobalScaffold(title: "Home"),
+      home: GlobalScaffold(title: "Home",key: globalScaffoldKey,),
     );
   }
 }
 
+final GlobalKey<_GlobalScaffoldState> globalScaffoldKey = GlobalKey<_GlobalScaffoldState>();
 /// This is the scaffold which contains the icons TODO: Add better documentation
 class GlobalScaffold extends StatefulWidget {
   const GlobalScaffold({super.key, required this.title});
@@ -102,6 +104,12 @@ class GlobalScaffold extends StatefulWidget {
 class _GlobalScaffoldState extends State<GlobalScaffold> {
   int currentPageIndex = 0;
 
+
+  void updatePageIndex(int newIndex) {
+    setState(() {
+      currentPageIndex = newIndex;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -136,23 +144,31 @@ class _GlobalScaffoldState extends State<GlobalScaffold> {
             icon: Icon(Icons.upload_outlined),
             label: 'Create',
           ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.upload_rounded),
-            icon: Icon(Icons.upload_outlined),
-            label: 'Search',
-          ),
+          // NavigationDestination(
+          //   selectedIcon: Icon(Icons.upload_rounded),
+          //   icon: Icon(Icons.upload_outlined),
+          //   label: 'Search',
+          // ),
         ],
       ),
-      body: <Widget>[ //TODO: Implement
-      LeaderboardPage(),
-      DiscoverPage(),
-      ProfilePage(),
-      CreatePage(),
-      SearchPage(),
-        //const DiscoverPage(),
-        //const ProfilePage(),
-        //const CreatePage(),
-      ][currentPageIndex],
+      body: PageTransitionSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (child, primaryAnimation, secondaryAnimation) {
+          return FadeThroughTransition(
+            animation: primaryAnimation,
+            secondaryAnimation: secondaryAnimation,
+            child: child,
+          );
+        },
+        child: <Widget>[
+          LeaderboardPage(),
+          DiscoverPage(),
+          ProfilePage(),
+          CreatePage(),
+          SearchPage(),
+        ][currentPageIndex],
+      ),
     );
+    //);
   }
 }

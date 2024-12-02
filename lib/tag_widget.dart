@@ -1,3 +1,4 @@
+import 'package:bestloop_app/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 
@@ -12,12 +13,11 @@ typedef TagTitle<String> = Widget Function(String tag);
 
   My idea to get full functionality it to just always make the last tag an add button, which onpressed creates a tag. Who knows...
 */
-
 class SmallTag extends StatefulWidget {
   SmallTag({
     required this.tags,
     this.minTagViewHeight = 0,
-    this.maxTagViewHeight = 16,
+    this.maxTagViewHeight = 150,
     this.tagBackgroundColor = Colors.transparent, 
     this.selectedTagBackgroundColor = Colors.lightBlue,
     this.deletableTag = true,
@@ -39,6 +39,7 @@ class SmallTag extends StatefulWidget {
 }
 
 class _SmallTagState extends State<SmallTag> {
+  List<int> selectedTagIndices = [];
   int selectedTagIndex = -1;
 
   @override
@@ -55,7 +56,7 @@ class _SmallTagState extends State<SmallTag> {
       child: SingleChildScrollView(
         child: Wrap(
           alignment: WrapAlignment.start,
-          spacing: 5.0, // Adjust for spacing between entries horizontally
+          spacing: 6.0, // Adjust for spacing between entries horizontally
           runSpacing: 4.0, // Adjust for vertical spacing between tags
           direction: Axis.horizontal,
           children: buildTags(),
@@ -76,24 +77,36 @@ class _SmallTagState extends State<SmallTag> {
     return InkWell(
       onTap: () {
         setState(() {
-          selectedTagIndex = index;
-        });
+          if (tagTitle != "+") {
+            if(selectedTagIndices.contains(index)) {
+              selectedTagIndices.remove(index);
+            } else {
+              selectedTagIndices.add(index);
+            }
+            selectedTagIndex = index;
+            print(index);
+          } else {
+            print("I must ADD!");
+          }
+        }
+        );
       },
       child: Container(
-        height: 14.0, // Set the height to 24 pixels
+        height: 16.0,
         padding: const EdgeInsets.symmetric(horizontal: 4.0), // Adjust left padding of text
         decoration: BoxDecoration(
-          border: const GradientBoxBorder(
-            gradient: LinearGradient(colors: [Colors.pink, Colors.purple]),
+          border: GradientBoxBorder(
+            gradient: selectedTagIndices.contains(index) ? LinearGradient(colors: [const Color.fromARGB(255, 30, 233, 172), const Color.fromARGB(255, 46, 10, 177)])
+             : BestLoopColors.primaryGradient,
             width: 1, // Line width
           ),
-          borderRadius: BorderRadius.circular(26), // Amount of circleness
+          borderRadius: BorderRadius.circular(8), // Amount of circleness
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             widget.tagTitle == null 
-              ? Text(tagTitle, style: Theme.of(context).textTheme.bodySmall) // Use bodySmall text style
+              ? Text(tagTitle, style: Theme.of(context).textTheme.bodySmall)
               : widget.tagTitle!(tagTitle),
           ],
         ),

@@ -1,9 +1,15 @@
+import 'package:bestloop_app/pages/discover_page.dart';
 import 'package:bestloop_app/debug.dart';
 import 'package:bestloop_app/pages/create_page.dart';
-import 'package:bestloop_app/pages/discover_page.dart';
 import 'package:bestloop_app/pages/leaderboard_page.dart';
-import 'package:bestloop_app/pages/profile_page.dart';
+import 'package:bestloop_app/pages/search_page.dart';
+// import 'package:bestloop_app/pages/create_page.dart';
+// import 'package:bestloop_app/pages/discover_page.dart';
+// import 'package:bestloop_app/pages/leaderboard_page.dart';
+// import 'package:bestloop_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
+
+import 'pages/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       
       theme: ThemeData(
@@ -31,9 +38,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         textTheme: TextTheme(
           bodySmall: const TextStyle(
-            fontSize: 8,
+            fontSize: 12,
             color: Color(0xFFFFFFFF),
-            fontWeight: FontWeight.bold,
             height: 1.0,
           ),  // USED FOR TAGS
           bodyMedium: TextStyle(
@@ -130,13 +136,22 @@ class _GlobalScaffoldState extends State<GlobalScaffold> {
             icon: Icon(Icons.upload_outlined),
             label: 'Create',
           ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.upload_rounded),
+            icon: Icon(Icons.upload_outlined),
+            label: 'Search',
+          ),
         ],
       ),
       body: <Widget>[ //TODO: Implement
-        const LeaderboardPage(),
-        const DiscoverPage(),
-        const ProfilePage(),
-        const CreatePage(),
+      LeaderboardPage(),
+      DiscoverPage(),
+      ProfilePage(),
+      CreatePage(),
+      SearchPage(),
+        //const DiscoverPage(),
+        //const ProfilePage(),
+        //const CreatePage(),
       ][currentPageIndex],
     );
   }

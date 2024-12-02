@@ -36,6 +36,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   gradient_borders: ^1.0.1
+  flutter_svg: ^1.0.3
+
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +60,48 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/waveform.svg
+    - assets/share.svg
+    - assets/pink.svg
+    - assets/nonC.svg
+    - assets/IMG_4099.jpg
+    - assets/me.JPG
+    - assets/leavingroom.jpg
+    - assets/wavfiles/dog.wav
+    - assets/wavfiles/Unsure.wav
+    - assets/wavfiles/Carhood.wav
+    - assets/wavfiles/_.wav
+    - assets/wavfiles/Aboriginal Jumbgurl.wav
+    - assets/wavfiles/Midwest.wav
+    - assets/wavfiles/Preachers.wav
+    - assets/wavfiles/Simile diactomy.wav
+    - assets/DSCF3834.JPEG
+    - assets/IMG_0276.JPG
+    - assets/IMG_7256.PNG
+    - assets/IMG_7325.JPG
+    - assets/IMG_7356.jpg
+    - assets/IMG_7905.jpg
+    - assets/IMG_7924.jpg
+    - assets/IMG_7942.jpg
+    - assets/IMG_0438.JPG
+    - assets/IMG_6694 (1).jpg
+    - assets/Ellipse 12 (1).png
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   # To add assets to your application, add an assets section, like this:
   # assets:

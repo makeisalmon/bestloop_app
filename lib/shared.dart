@@ -4,7 +4,7 @@ import 'package:gradient_borders/gradient_borders.dart';
 ///  Stores the commonly used brand colors for the app and some preset gradients to reduce code
 ///  redundancy. Some widgets will still need to construct their own LinearGradient for special
 ///  cases.
-class ThemeColors {
+class BestLoopColors {
   static const primaryA = Color(0xFFFF008C);
   static const primaryB = Color(0xFFB500B5);
   static const secondaryA = Color(0xFFB500B5);
@@ -35,7 +35,7 @@ class BestLoopButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.icon,
-    this.gradient = ThemeColors.primaryGradient,
+    this.gradient = BestLoopColors.primaryGradient,
   });
 
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class BestLoopTickbox extends StatelessWidget {
           padding: EdgeInsets.all(12), // Padding here ensures tappable space is 44 sq. px.
           child: Container(
             decoration: BoxDecoration(
-              border: const GradientBoxBorder(gradient: ThemeColors.primaryGradient, width: 2),
+              border: const GradientBoxBorder(gradient: BestLoopColors.primaryGradient, width: 2),
               borderRadius: BorderRadius.circular(4),
             ),
             child: SizedBox.square(dimension: 20,),

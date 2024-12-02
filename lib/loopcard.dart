@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:bestloop_app/main.dart';
 import 'package:bestloop_app/pages/discover_page.dart';
+import 'package:bestloop_app/sound_services/loop_sound_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'loop_files/loop_data.dart';
@@ -39,9 +40,13 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
         setState(() {
           _isExpanded = !_isExpanded;
         });
-        if (!_isExpanded) {
+        if (_isExpanded) {
+          LoopSoundService.changeLoop(widget.loopData.audioPath);
+          LoopSoundService.playLoop();
+        } else {
           globalScaffoldKey.currentState?.updatePageIndex(discoverPageIndex);
         }
+      
       },
       child: AnimatedContainer(
         height: _isExpanded ? 170.0 : 89.0,

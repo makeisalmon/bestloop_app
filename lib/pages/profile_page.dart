@@ -26,29 +26,30 @@ class _ProfilePageState extends State<ProfilePage> {
       body: Stack(
         children: [
           // Background image taking more space
-        Container(
-          height: MediaQuery.of(context).size.height / 2,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/IMG_6694 (1).jpg'), // Replace with your image asset
-              fit: BoxFit.cover,
-              opacity: .6, // Set opacity to 1 for the image to be fully visible
+          Container(
+            height: MediaQuery.of(context).size.height / 2,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/IMG_6694 (1).jpg'), // Replace with your image asset
+                fit: BoxFit.cover,
+                opacity: 0.6, // Set opacity to 0.6 for the image to be partially visible
+              ),
             ),
-          ),
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.transparent, // Start with no color (transparent) at the top
-                  Colors.black, // Fade to black at the bottom with opacity
-                ],
-                stops: [0.0, .8], // Controls the transition area of the gradient
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent, // Start with no color (transparent) at the top
+                    Colors.black.withOpacity(0.8), // Fade to black at the bottom with opacity
+                  ],
+                  stops: [0.0, 0.8], // Controls the transition area of the gradient
+                ),
               ),
             ),
           ),
-        ),          // Content
+          // Content
           Column(
             children: [
               const SizedBox(height: 50), // Add some top padding
@@ -73,7 +74,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Expanded(
                         child: LoopList(
                           name: "Favorites",
-                          color: const Color(0xFF6100B5),
+                          gradientColors: [const Color(0xFF6100B5), const Color(0xFF340022)],
                           loopDataList: loopDataDictionary.values.toList(),
                         ),
                       ),
@@ -81,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Expanded(
                         child: LoopList(
                           name: "Uploads",
-                          color: const Color(0xFFB500B5),
+                          gradientColors: [const Color(0xFFB500B5), const Color(0xFF340022)],
                           loopDataList: loopDataDictionary.values.toList(),
                         ),
                       ),
@@ -89,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Expanded(
                         child: LoopList(
                           name: "Following",
-                          color: const Color(0xFF8B00B5),
+                          gradientColors: [const Color(0xFF8B00B5), const Color(0xFF340022)],
                           loopDataList: loopDataDictionary.values.toList(),
                         ),
                       ),

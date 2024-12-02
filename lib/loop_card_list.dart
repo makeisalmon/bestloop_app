@@ -4,13 +4,13 @@ import 'loop_files/loop_data.dart';
 
 class LoopList extends StatelessWidget {
   final String name;
-  final Color color;
+  final List<Color> gradientColors;
   final List<LoopData> loopDataList;
 
   const LoopList({
     Key? key,
     required this.name,
-    required this.color,
+    required this.gradientColors,
     required this.loopDataList,
   }) : super(key: key);
 
@@ -20,7 +20,11 @@ class LoopList extends StatelessWidget {
       margin: const EdgeInsets.all(0.0), // Outside container margin
       padding: const EdgeInsets.all(8.0), // Inside container padding
       decoration: BoxDecoration(
-        color: color,
+        gradient: LinearGradient(
+          colors: gradientColors,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          ),
         borderRadius: BorderRadius.circular(24.0),
       ),
       child: Column(
@@ -47,7 +51,7 @@ class LoopList extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(24.0),
                 child: ListView.builder(
-                  padding: const EdgeInsets.fromLTRB(8.0,4.0,8.0,0.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 0.0),
                   itemCount: loopDataList.length,
                   itemBuilder: (context, index) {
                     return LoopCard(loopData: loopDataList[index]);

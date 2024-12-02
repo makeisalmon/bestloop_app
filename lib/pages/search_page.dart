@@ -1,4 +1,10 @@
 
+import 'dart:ffi';
+
+import 'package:bestloop_app/loop_card_list.dart';
+import 'package:bestloop_app/loop_files/loop_data_dictionary.dart';
+import 'package:bestloop_app/loopcard.dart';
+import 'package:bestloop_app/shared.dart';
 import 'package:flutter/material.dart';
 
 List<String> audioKeywords = [
@@ -43,6 +49,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final List<String> _keywords = audioKeywords;
+  bool _isSearching = true;
 
   final TextEditingController _controller = TextEditingController();
   List<String> _filteredKeywords = [];
@@ -69,22 +76,44 @@ class _SearchPageState extends State<SearchPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-                borderRadius: BorderRadius.circular(22)
-              ),
-              child: TextField(
-                controller: _controller,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Search keywords...",
-                  contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            Row(
+              children: [
+                //TODO: Make back button tappable
+                const Icon(Icons.arrow_back_ios_new),
+                const SizedBox(width: 16,),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade900,
+                      borderRadius: BorderRadius.circular(22)
+                    ),
+                    child: TextField(
+                      controller: _controller,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Search keywords...",
+                        contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                      ),
+                      onSubmitted: (value){
+                        //TODO: Make an actual search query occur (nash its not what it looks like)
+                        setState(() {
+                          _isSearching = false;
+                        });
+                      },
+                      onTap: (){
+                        setState(() {
+                          _isSearching = true;
+                        });
+                      },
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                  ),
                 ),
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+                const SizedBox(width: 32,),
+              ],
             ),
             SizedBox(height: 10),
+            if (_isSearching)
             Expanded(
               child: ListView.builder(
                 itemCount: _filteredKeywords.length,
@@ -94,12 +123,20 @@ class _SearchPageState extends State<SearchPage> {
                     onTap: () {
                       _controller.text = _filteredKeywords[index];
                       _filteredKeywords.clear();
-                      setState(() {});
+                      setState(() {
+                        _isSearching = false;
+                      });
                     },
                   );
                 },
               ),
             ),
+            if (!_isSearching)
+            Expanded(
+              child: ListView(
+                children: [LoopCard(loopData: loopDataDictionary["Chill Vibes"]!)],
+              ),
+            )
           ],
         ),
       ),

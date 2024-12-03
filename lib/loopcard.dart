@@ -34,6 +34,21 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
     super.initState();
     _likeCount = widget.loopData.likes;
     _dislikeCount = widget.loopData.dislikes;
+    globalScaffoldKey.currentState?.currentSelectedLoop.addListener(_onSelectedLoopChange);
+  }
+
+  @override
+  void dispose() {
+    globalScaffoldKey.currentState?.currentSelectedLoop.removeListener(_onSelectedLoopChange);
+    super.dispose();
+  }
+
+  void _onSelectedLoopChange() {
+    if (globalScaffoldKey.currentState?.currentSelectedLoop.value != widget.loopData.audioPath) {
+      setState(() {
+        _isExpanded = false;
+      });
+    }
   }
 
   @override
@@ -44,7 +59,9 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
           _isExpanded = !_isExpanded;
         });
         if (_isExpanded) {
+          globalScaffoldKey.currentState?.currentSelectedLoop.value = widget.loopData.audioPath;
           LoopSoundService.changeLoop(widget.loopData.audioPath);
+          print(widget.loopData.audioPath);
           LoopSoundService.playLoop();
         } else {
           if (SearchPage.isActive) {

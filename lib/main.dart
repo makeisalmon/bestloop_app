@@ -4,6 +4,7 @@ import 'package:bestloop_app/debug.dart';
 import 'package:bestloop_app/pages/create_page.dart';
 import 'package:bestloop_app/pages/leaderboard_page.dart';
 import 'package:bestloop_app/pages/search_page.dart';
+import 'package:bestloop_app/pages/sign_in.dart';
 // import 'package:bestloop_app/pages/create_page.dart';
 // import 'package:bestloop_app/pages/discover_page.dart';
 // import 'package:bestloop_app/pages/leaderboard_page.dart';
@@ -76,7 +77,7 @@ class MyApp extends StatelessWidget {
           }),
         ),
       ),
-      home: SignIn(),
+      home: SignIn(),//GlobalScaffold(title: "Home",key: globalScaffoldKey,),
     );
   }
 }
@@ -103,7 +104,7 @@ class GlobalScaffold extends StatefulWidget {
 
 class _GlobalScaffoldState extends State<GlobalScaffold> {
   int currentPageIndex = 0;
-
+  ValueNotifier<String> currentSelectedLoop = ValueNotifier("");
 
   void updatePageIndex(int newIndex) {
     setState(() {

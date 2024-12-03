@@ -65,17 +65,22 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-   - assets/
-   - assets/wavfiles/dog.wav
-   
-
-    # - assets/waveform.svg
-    # - assets/share.svg
-    # - assets/pink.svg
-    # - assets/nonC.svg
-    # - assets/IMG_4099.jpg
-    # - assets/me.JPG
-    # - assets/leavingroom.jpg
+    - assets/wavfiles/
+    - assets/waveform.svg
+    - assets/share.svg
+    - assets/pink.svg
+    - assets/nonC.svg
+    - assets/IMG_4099.jpg
+    - assets/me.JPG
+    - assets/leavingroom.jpg
+    - assets/wavfiles/
+    - assets/waveform.svg
+    - assets/share.svg
+    - assets/pink.svg
+    - assets/nonC.svg
+    - assets/IMG_4099.jpg
+    - assets/me.JPG
+    - assets/leavingroom.jpg
     # - assets/wavfiles/dog.wav
     # - assets/wavfiles/Unsure.wav
     # - assets/wavfiles/Carhood.wav
@@ -95,6 +100,17 @@ flutter:
     # - assets/IMG_0438.JPG
     # - assets/IMG_6694 (1).jpg
     # - assets/Ellipse 12 (1).png
+    - assets/DSCF3834.JPEG
+    - assets/IMG_0276.JPG
+    - assets/IMG_7256.PNG
+    - assets/IMG_7325.JPG
+    - assets/IMG_7356.jpg
+    - assets/IMG_7905.jpg
+    - assets/IMG_7924.jpg
+    - assets/IMG_7942.jpg
+    - assets/IMG_0438.JPG
+    - assets/IMG_6694 (1).jpg
+    - assets/Ellipse 12 (1).png
 
     
 

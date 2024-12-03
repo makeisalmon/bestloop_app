@@ -15,6 +15,15 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String _activeTab = "Favorites";
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final String? initialTab = ModalRoute.of(context)?.settings.arguments as String?;
+    if (initialTab != null) {
+      _activeTab = initialTab;
+    }
+  }
+
   void _setActiveTab(String tab) {
     setState(() {
       _activeTab = tab;

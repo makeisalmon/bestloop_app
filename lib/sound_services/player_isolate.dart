@@ -308,6 +308,8 @@ class AudioPlayer {
         
         // /****************************/
         if (result.isEnd) {
+          LoopSoundService.changeLoop(LoopSoundService.loopSoundPath);
+          LoopSoundService.playLoop();
           return false;
         }
 

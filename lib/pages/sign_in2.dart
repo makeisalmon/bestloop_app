@@ -96,7 +96,7 @@ class SignIn2 extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const GlobalScaffold(title: 'help'),
+                    builder: (context) => GlobalScaffold(title: "Home",key: globalScaffoldKey,),
                   ),
                 );
               },

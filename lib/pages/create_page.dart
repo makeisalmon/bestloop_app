@@ -1,3 +1,4 @@
+import 'package:bestloop_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:file_selector/file_selector.dart';
@@ -19,7 +20,7 @@ class CreatePage extends StatefulWidget {
 class _CreatePageState extends State<CreatePage> {
   String? audioPath;
   String? imagePath;
-  List<String> tags = ['example'];
+  List<String> tags = [];
   String? licensing;
   String loopTitle = '';
 
@@ -89,6 +90,8 @@ void _upload() {
   } else {
     // Show an error message
   }
+      globalScaffoldKey.currentState?.updatePageIndex(3);
+
 }
 
   @override

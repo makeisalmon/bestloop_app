@@ -8,7 +8,6 @@ import 'package:bestloop_app/sound_services/loop_sound_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'loop_files/loop_data.dart';
-import 'tag_widget.dart';
 import 'components/tag_widget.dart';
 
 const discoverPageIndex = 1;

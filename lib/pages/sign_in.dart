@@ -13,7 +13,7 @@ class SignIn extends StatelessWidget {
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/3d-background-3d-lines-3d-art-black-background-neon-lines-3840x2160-9088 1.png',
+              'assets/background21.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -25,7 +25,7 @@ class SignIn extends StatelessWidget {
                 // Smaller image in the middle
                 Center(
                   child: Image.asset(
-                    'assets/Vector.png',
+                    'assets/Vector (3).png',
                     width: 170,
                     height: 120,
                   ),

@@ -30,7 +30,7 @@ final Map<String, LoopData> loopDataDictionary = {
     hasBeenOnLeaderboard: false,
     pathToWaveForm: 'assets/waveforms/dog_beats.png',
     dislikes: 20,
-    tags: ['dog', 'beats', 'fun', '+'],
+    tags: ['dog', 'beats', 'fun'],
     location: 'New Orleans',
     topComment: 'Woof! This is awesome!',
   ),
@@ -98,9 +98,26 @@ final Map<String, LoopData> loopDataDictionary = {
     location: 'New Orleans ',
     topComment: 'i like the ber ber ber part!',
   ),
+      'Taiko': LoopData(
+    imagePath: 'assets/drum.jpg',
+    loopTitle: 'Taiko Drums!',
+    artistName: 'Taiko drummer',
+    artistImagePath: 'assets/taiko.jpg',
+    audioPath: 'assets/audio/Midwest.wav',
+    licensing: 'assets/share.svg',
+    comments: 1,
+    likes: 100,
+    hasBeenOnLeaderboard: false,
+    pathToWaveForm: 'assets/waveforms/_.png',
+    dislikes: 0,
+    tags: ['Taiko', 'japanese', 'drums '],
+    location: 'Toyko',
+    topComment: 'Wow! so cool!',
+      )
 };
 
 final List<LoopData> SearchResults = [
   loopDataDictionary["DrumTypeBeat"]!,
   loopDataDictionary["Dog Beats"]!,
+  loopDataDictionary["Taiko"]!,
 ];

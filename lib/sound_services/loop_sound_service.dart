@@ -25,39 +25,32 @@ Future<File> getAssetFile(String assetPath) async {
 class LoopSoundService {
   static ValueNotifier<double> visualAmplitude = ValueNotifier<double>(0.0);
   static String loopSoundPath = "";
+  static AudioPlayer? _audioPlayer;
+
   static void changeLoop(String assetPath) {
+    _audioPlayer!.pause();
+    _audioPlayer = null;
     loopSoundPath = assetPath;
   }
 
   static Future<void> playLoop() async {
-    print("yes i was called.");
-    File fileToPlay = await getAssetFile(loopSoundPath);
-    AudioPlayer plr = AudioPlayer(
-      context: AudioDeviceContext(backends: [AudioDeviceBackend.aaudio]),
-      bufferDuration: const AudioTime(0.08),
-      decoder: WavAudioDecoder(
-        dataSource: AudioFileDataSource(
-          file: fileToPlay, 
-          mode: FileMode.read,
-        )
-      ),
-    );
-    plr.play();
+    if (_audioPlayer == null && _audioPlayer!.isPlaying) {
+      File fileToPlay = await getAssetFile(loopSoundPath);
+      _audioPlayer = AudioPlayer(
+        context: AudioDeviceContext(backends: [AudioDeviceBackend.aaudio]),
+        bufferDuration: const AudioTime(0.08),
+        decoder: WavAudioDecoder(
+          dataSource: AudioFileDataSource(
+            file: fileToPlay, 
+            mode: FileMode.read,
+          )
+        ),
+      );
+      _audioPlayer!.play();
+    }
   }
   static Future<void> pauseLoop() async {
-    print("yes i was called.");
-    File fileToPlay = await getAssetFile("audio/dg.wav");
-    AudioPlayer plr = AudioPlayer(
-      context: AudioDeviceContext(backends: [AudioDeviceBackend.aaudio]),
-      bufferDuration: const AudioTime(0.08),
-      decoder: WavAudioDecoder(
-        dataSource: AudioFileDataSource(
-          file: fileToPlay, 
-          mode: FileMode.read,
-        )
-      ),
-    );
-    plr.play();
+    _audioPlayer?.pause();
   }
 }
 
@@ -72,7 +65,7 @@ class AudioVisualizer {
     double rms = sqrt(samples.map((s) => s * s).reduce((a, b) => a + b) / samples.length);
 
     // Step 3: Normalize RMS based on minimum and maximum RMS values
-    const double minRMS = 103.0;
+    const double minRMS = 103.2;
     const double maxRMS = 106.0;
     double normalizedRMS = ((maxRMS - rms) / (maxRMS - minRMS)).clamp(0.0, 1.5);
 

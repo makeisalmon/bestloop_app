@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../loop_files/loop_data.dart'; // Import the common LoopData class
 import '../loop_files/loop_data_dictionary.dart'; // Import the dictionary
-import 'package:bestloop_app/tag_widget.dart';
+import 'package:bestloop_app/components/tag_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
   @override
@@ -136,7 +136,7 @@ class _Rotting extends State<DiscoverPage> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * (1/2) - 64,
                             ),
-                            SineWaveRectangles(),
+                            const SineWaveRectangles(),
                           ],
                         ),
                       ],

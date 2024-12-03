@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:file_selector/file_selector.dart';
 import 'package:bestloop_app/artist_Info.dart';
-import 'package:bestloop_app/tag_widget.dart';
+import 'package:bestloop_app/components/tag_widget.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:bestloop_app/loop_files/loop_data.dart';
 import 'package:bestloop_app/loop_files/uploads.dart';

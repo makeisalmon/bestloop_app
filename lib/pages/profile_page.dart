@@ -120,7 +120,8 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
         decoration: BoxDecoration(
-          color: isActive ? color : const Color(0xFF340022),
+          color: isActive ? color : null,
+          gradient: isActive ? null : LinearGradient(colors: [Color(0xFF340022),Color(0xFF4F004F)]),
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Text(

@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:bestloop_app/components/waveform.dart';
+import 'package:bestloop_app/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../loop_files/loop_data.dart'; // Import the common LoopData class
@@ -57,143 +59,156 @@ class _Rotting extends State<DiscoverPage> {
                 children: [
                   // Background Image with Gradient Overlay
                   Container(
-                    width: double.infinity,
-                    child: AspectRatio(
-                      aspectRatio: 16 / 18,
-                      child: Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(currentLoopData.imagePath),
-                                fit: BoxFit.cover,
-                              ),
+                    //width: double.infinity,
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(currentLoopData.imagePath),
+                              fit: BoxFit.cover,
                             ),
                           ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Colors.transparent,
-                                  Colors.black,
-                                ],
-                                stops: [
-                                  .3,
-                                  1,
-                                ],
-                              ),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * (2 / 4),
+                            width: MediaQuery.of(context).size.width,
+                          ),
+                        ),
+                        Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                Colors.black,
+                              ],
+                              stops: [
+                                .3,
+                                1,
+                              ],
                             ),
                           ),
-                          // Add the SVG overlay here
-                          Align(
-                            alignment: Alignment.bottomLeft, // Adjust alignment as needed
-                            child: Container(
-                              width: 125, // Set the desired width
-                              height: 125, // Set the desired height
-                              child: SvgPicture.asset(
-                                'assets/pink.svg', // Path to your SVG asset
-                                color: Colors.pink, // Change the color of the SVG
-                              ),
-                            ),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * (2 / 4)+1,
+                            width: MediaQuery.of(context).size.width,
                           ),
-                          Align(
-                            alignment: Alignment.bottomRight, // Adjust alignment as needed
-                            child: Container(
-                              width: 125, // Set the desired width
-                              height: 125, // Set the desired height
-                              child: SvgPicture.asset(
-                                'assets/pink.svg', // Path to your SVG asset
-                                color: Colors.pink, // Change the color of the SVG
-                              ),
+                        ),
+                        // Add the SVG overlay here
+                        // Align(
+                        //   alignment: Alignment.bottomLeft, // Adjust alignment as needed
+                        //   child: Container(
+                        //     width:  MediaQuery.of(context).size.width*(1/2), // Set the desired width
+                        //     height: 125, // Set the desired height
+                        //     child: SvgPicture.asset(
+                        //       fit: BoxFit.fill,
+                        //       'assets/pink.svg', // Path to your SVG asset
+                        //       color: Colors.pink, // Change the color of the SVG
+                        //     ),
+                        //   ),
+                        // ),
+                        // Align(
+                        //   alignment: Alignment.bottomRight, // Adjust alignment as needed
+                        //   child: Container(
+                        //     width:  MediaQuery.of(context).size.width*(1/2),
+                        //     height: 125, // Set the desired height
+                        //     child: SvgPicture.asset(
+                        //       'assets/pink.svg', // Path to your SVG asset
+                        //       fit: BoxFit.fill,
+                        //       color: Colors.pink, // Change the color of the SVG
+                        //     ),
+                        //   ),
+                        // ),
+                        // Align(
+                        //   alignment: Alignment.bottomCenter, // Adjust alignment as needed
+                        //   child: Container(
+                        //     width:  MediaQuery.of(context).size.width*(1/2),
+                        //     height: 125, // Set the desired height
+                        //     child: SvgPicture.asset(
+                        //       fit: BoxFit.fill,
+                        //       'assets/pink.svg', // Path to your SVG asset
+                        //       color: Colors.pink, // Change the color of the SVG
+                        //     ),
+                        //   ),
+                        // ),
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * (1/2) - 64,
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter, // Adjust alignment as needed
-                            child: Container(
-                              width: 125, // Set the desired width
-                              height: 125, // Set the desired height
-                              child: SvgPicture.asset(
-                                'assets/pink.svg', // Path to your SVG asset
-                                color: Colors.pink, // Change the color of the SVG
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                            SineWaveRectangles(),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-              // Waveform Placeholder
-              Container(
-                height: 0,
-                color: Colors.transparent,
-                child: const Center(child: Text('Waveform Placeholder')),
-              ),
               // Title and Artist Information
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.6, // Adjust this value to position correctly
-                left: 8.0,
-                right: 8.0,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 44, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * (2 / 4)+64,
+                      width: double.infinity, // Ensures it spans the full width
+                      child: Container(color: Colors.transparent), // Invisible widget
+                    ),
                     Text(
                       currentLoopData.loopTitle,
-                      style: TextStyle(fontSize: 24, color: Colors.white),
+                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      shadows: [const Shadow(
+                        color: BestLoopColors.primaryA,
+                        blurRadius: 8,
+                        offset: Offset.zero,
+                      )],
+                    )
+                      ,
                     ),
                     Container(
                       margin: const EdgeInsets.only(
-                          top: 16.0, bottom: 8.0, left: 0.0, right: 12.0),
+                          top: 12.0, bottom: 12.0, left: 0.0, right: 12.0),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             margin: const EdgeInsets.only(right: 8.0),
                             child: CircleAvatar(
+                              maxRadius: 18,
                               backgroundImage: AssetImage(
                                   currentLoopData.artistImagePath),
                             ),
                           ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Add SizedBox to move the text down
-                                SizedBox(height: 10), // Adjust the height as needed
-                                Text(
-                                  currentLoopData.artistName,
-                                  style: TextStyle(
-                                      fontSize: 18, color: Colors.white),
-                                ),
-                              ],
-                            ),
+                          Column(
+                            children: [
+                              const SizedBox(height: 8),
+                              Text(
+                                currentLoopData.artistName,
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                            ],
                           ),
                         ],
                       ),
                     ),
+                    SmallTag(
+                      tags: currentLoopData.tags,
+                      onDeleteTag: (index) {
+                        print('Deleted tag at index: $index');
+                      },
+                    ),
                   ],
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 510.0, bottom: 0.0),
-                child: SmallTag(
-                  tags: currentLoopData.tags,
-                  onDeleteTag: (index) {
-                    print('Deleted tag at index: $index');
-                  },
-                ),
-              ),
-              // Icons Column
-              Positioned(
-                top: 425, // Adjust this value to move the icons lower
-                right: 10,
+              Align(
+                alignment: Alignment.bottomRight,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                      icon: Icon(Icons.comment),
+                      icon: const Icon(Icons.comment),
+                      color: Colors.white,
                       onPressed: () {},
                     ),
                     Text(
@@ -201,21 +216,25 @@ class _Rotting extends State<DiscoverPage> {
                       style: TextStyle(color: Colors.white),
                     ),
                     IconButton(
-                      icon: Icon(Icons.favorite),
+                      icon: const Icon(Icons.favorite),
+                      color: Colors.white,
                       onPressed: () {},
                     ),
                     Text(
                       '${currentLoopData.likes}',
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                     IconButton(
-                      icon: Icon(Icons.share),
+                      icon: const Icon(Icons.share),
+                      color: Colors.white,
                       onPressed: () {},
                     ),
                     IconButton(
-                      icon: Icon(Icons.download),
+                      icon: const Icon(Icons.download),
+                      color: Colors.white,
                       onPressed: () {},
                     ),
+                    SizedBox(height: 44,)
                   ],
                 ),
               ),
@@ -229,11 +248,12 @@ class _Rotting extends State<DiscoverPage> {
                   children: [
                     // Licensing Placeholder
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                      padding: const EdgeInsets.only(left: 16.0),
                       child: SvgPicture.asset(
+                        color: Colors.grey.shade600,
                         currentLoopData.licensing,
-                        width: 50,
-                        height: 50,
+                        width: 36,
+                        height: 36,
                       ),
                     ),
                     // Scrubber

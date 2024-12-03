@@ -42,6 +42,7 @@ List<String> audioKeywords = [
 
 
 class SearchPage extends StatefulWidget {
+  static bool isActive = false;
   @override
   _SearchPageState createState() =>
       _SearchPageState();
@@ -50,14 +51,17 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final List<String> _keywords = audioKeywords;
   bool _isSearching = true;
+  final FocusNode _focusNode = FocusNode();
 
   final TextEditingController _controller = TextEditingController();
   List<String> _filteredKeywords = [];
-
   @override
   void initState() {
     super.initState();
     _controller.addListener(_filterKeywords);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(_focusNode);
+    });
   }
 
   void _filterKeywords() {
@@ -71,73 +75,84 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    SearchPage.isActive = true;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                //TODO: Make back button tappable
-                const Icon(Icons.arrow_back_ios_new),
-                const SizedBox(width: 16,),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade900,
-                      borderRadius: BorderRadius.circular(22)
-                    ),
-                    child: TextField(
-                      controller: _controller,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Search keywords...",
-                        contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      bottomNavigationBar: SizedBox(height:64),
+      body: Container(
+        color: Colors.black,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  //TODO: Make back button tappable
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  const SizedBox(width: 16,),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade900,
+                        borderRadius: BorderRadius.circular(22)
                       ),
-                      onSubmitted: (value){
-                        //TODO: Make an actual search query occur (nash its not what it looks like)
+                      child: TextField(
+                        focusNode: _focusNode,
+                        controller: _controller,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Search keywords...",
+                          contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                        ),
+                        onSubmitted: (value){
+                          //TODO: Make an actual search query occur (nash its not what it looks like)
+                          setState(() {
+                            _isSearching = false;
+                          });
+                        },
+                        onTap: (){
+                          setState(() {
+                            _isSearching = true;
+                          });
+                        },
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 32,),
+                ],
+              ),
+              SizedBox(height: 10),
+              if (_isSearching)
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _filteredKeywords.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(_filteredKeywords[index], style: Theme.of(context).textTheme.bodyLarge,),
+                      onTap: () {
+                        _controller.text = _filteredKeywords[index];
+                        _filteredKeywords.clear();
                         setState(() {
                           _isSearching = false;
                         });
                       },
-                      onTap: (){
-                        setState(() {
-                          _isSearching = true;
-                        });
-                      },
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ),
+                    );
+                  },
                 ),
-                const SizedBox(width: 32,),
-              ],
-            ),
-            SizedBox(height: 10),
-            if (_isSearching)
-            Expanded(
-              child: ListView.builder(
-                itemCount: _filteredKeywords.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(_filteredKeywords[index], style: Theme.of(context).textTheme.bodyLarge,),
-                    onTap: () {
-                      _controller.text = _filteredKeywords[index];
-                      _filteredKeywords.clear();
-                      setState(() {
-                        _isSearching = false;
-                      });
-                    },
-                  );
-                },
               ),
-            ),
-            if (!_isSearching)
-            Expanded(
-              child: ListView(
-                children: [LoopCard(loopData: loopDataDictionary["Chill Vibes"]!)],
-              ),
-            )
-          ],
+              if (!_isSearching)
+              Expanded(
+                child: ListView(
+                  children: [LoopCard(loopData: loopDataDictionary["Dog Beats"]!)],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

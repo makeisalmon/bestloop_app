@@ -38,8 +38,10 @@ dependencies:
   gradient_borders: ^1.0.1
   flutter_svg: ^1.0.3
   file_selector: ^1.0.3
-
-
+  animations: ^2.0.11
+  coast_audio: ^1.0.0
+  equatable: ^2.0.7
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:

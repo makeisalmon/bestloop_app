@@ -31,12 +31,12 @@ class LoopList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 16.0), // Add padding to the text
+            padding: const EdgeInsets.fromLTRB(16,4,0,4), // Add padding to the text
             child: Text(
               name,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontSize: 22.0, // Slightly smaller text size
+                    fontSize: 20.0, // Slightly smaller text size
                     color: Colors.white,
                   ),
             ),
@@ -45,7 +45,7 @@ class LoopList extends StatelessWidget {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.black,
+                color: const Color(0xFF151515),
                 borderRadius: BorderRadius.circular(24.0),
               ),
               child: ClipRRect(

@@ -290,18 +290,23 @@ class AudioPlayer {
       ),
       onTick: (_, buffer) {
         final result = _playbackNode.outputBus.read(buffer);
-        /* Compute Visual Amplitude */
-        // Convert raw Uint8 samples to signed values and normalize
-        List<int> samples = List.generate(buffer.sizeInBytes, (i) => buffer.pBuffer.elementAt(i).value - 128);
-        print(samples.toString());
-        // Compute RMS Amplitude
-        double rms = sqrt(samples.map((s) => s * s).reduce((a, b) => a + b) / samples.length);
 
-        // Normalize to 0.0 - 1.0 range
-        LoopSoundService.visualAmplitude.value = rms/128;
-        print(samples.reduce(max));
+        List<int> samples = List.generate(buffer.sizeInBytes, (i) => buffer.pBuffer.elementAt(i).value);
+        var visint = AudioVisualizer.calculateVisualIntensity(samples);
+        LoopSoundService.visualAmplitude.value = visint;
+        //print(visint);
+        // /* Compute Visual Amplitude */
+        // // Convert raw Uint8 samples to signed values and normalize
+        // List<int> samples = List.generate(buffer.sizeInBytes, (i) => (buffer.pBuffer.elementAt(i).value - 128).abs());
+        // print(samples.toString());
+        // // Compute RMS Amplitude
+        // double rms = sqrt(samples.map((s) => s * s).reduce((a, b) => a + b) / samples.length);
+
+        // // Normalize to 0.0 - 1.0 range
+        // LoopSoundService.visualAmplitude.value = rms/16;
+        // print(samples.reduce(max));
         
-        /****************************/
+        // /****************************/
         if (result.isEnd) {
           return false;
         }

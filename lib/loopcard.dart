@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:bestloop_app/main.dart';
 import 'package:bestloop_app/pages/discover_page.dart';
+import 'package:bestloop_app/pages/search_page.dart';
 import 'package:bestloop_app/sound_services/loop_sound_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,6 +45,9 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
           LoopSoundService.changeLoop(widget.loopData.audioPath);
           LoopSoundService.playLoop();
         } else {
+          if (SearchPage.isActive) {
+            Navigator.pop(context);
+          }
           globalScaffoldKey.currentState?.updatePageIndex(discoverPageIndex);
         }
       
@@ -54,6 +58,11 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
         curve: Curves.ease,
         margin: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 4.0),
         decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Color(0x44FF008C),Color(0x44B500B5)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
           color: _isExpanded ? const Color(0xFF4A004A) : const Color.fromARGB(255, 120, 2, 120).withOpacity(.6), // Less vibrant colors
           borderRadius: BorderRadius.circular(16.0),
           border: Border.all(

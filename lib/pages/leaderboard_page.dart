@@ -1,3 +1,5 @@
+import 'package:bestloop_app/pages/search_page.dart';
+import 'package:bestloop_app/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:bestloop_app/loop_card_list.dart';
 import 'package:bestloop_app/loop_files/loop_data.dart';
@@ -10,14 +12,36 @@ class LeaderboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(24.0),
               child: Row(
                 children: [
-                  Text("Leaderboard", style: Theme.of(context).textTheme.displayMedium),
+                  Expanded(
+                    child: Text( "Leaderboard", 
+                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                        shadows: [const Shadow(
+                          color: BestLoopColors.primaryA,
+                          blurRadius: 8,
+                          offset: Offset.zero,
+                        )],
+                      )
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: IconButton(
+                      icon: Icon(Icons.search, color: Colors.white,),
+                      onPressed: () => showDialog<String>(
+                        barrierDismissible: true,
+                        barrierColor: Colors.transparent,
+                        context: context,
+                        builder: (BuildContext context) => SearchPage(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

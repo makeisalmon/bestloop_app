@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:bestloop_app/components/waveform.dart';
+import 'package:bestloop_app/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../loop_files/loop_data.dart'; // Import the common LoopData class
@@ -130,7 +131,14 @@ class _Rotting extends State<DiscoverPage> {
                         //     ),
                         //   ),
                         // ),
-                        SineWaveRectangles(),
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * (1/2) - 64,
+                            ),
+                            SineWaveRectangles(),
+                          ],
+                        ),
                       ],
                     ),
                   ),
@@ -149,7 +157,14 @@ class _Rotting extends State<DiscoverPage> {
                     ),
                     Text(
                       currentLoopData.loopTitle,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                      shadows: [const Shadow(
+                        color: BestLoopColors.primaryA,
+                        blurRadius: 8,
+                        offset: Offset.zero,
+                      )],
+                    )
+                      ,
                     ),
                     Container(
                       margin: const EdgeInsets.only(

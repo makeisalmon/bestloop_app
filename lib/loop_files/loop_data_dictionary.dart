@@ -99,3 +99,8 @@ final Map<String, LoopData> loopDataDictionary = {
     topComment: 'i like the ber ber ber part!',
   ),
 };
+
+final List<LoopData> SearchResults = [
+  loopDataDictionary["DrumTypeBeat"]!,
+  loopDataDictionary["Dog Beats"]!,
+];

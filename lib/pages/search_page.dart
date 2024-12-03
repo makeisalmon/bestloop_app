@@ -18,13 +18,16 @@ List<String> audioKeywords = [
   "crossfade", "granular", "sequencer", "bitrate", "sample rate", 
   "ADSR", "DSP", "vocoder", "saturation", "dynamics", "waveform editing",
 
-  // Keywords starting with "T"
+  // Keywords starting with "T" (important for demo)
   "tone", "tempo", "transient", "timbre", "track", "trigger", "threshold", 
   "tape", "time-stretching", "trim", "tuner", "toms", "triangle wave", 
   "tremolo", "tap tempo", "tuning", "tempo sync", "tempo map", "thresh", 
   "time-domain analysis", "timestretch", "track grouping", 
   "transport control", "track automation", "tone generator", 
   "truncation", "tap delay", "tonal balance", "tube distortion",
+  "taiko","tape", "tape delay", "tangerine", "tapping", "tacit", "tail", 
+  "tape loop", "tap tempo", "talea", "tangential distortion", "tarp", 
+  "target frequency", "tapping technique", "tapestry"
 
   // Specific Sound Types and Formats
   "drums", "kick", "snare", "hi-hat", "bass", "synth", "vocal", 
@@ -147,8 +150,12 @@ class _SearchPageState extends State<SearchPage> {
               ),
               if (!_isSearching)
               Expanded(
-                child: ListView(
-                  children: [LoopCard(loopData: loopDataDictionary["Dog Beats"]!)],
+                child: ListView.builder(
+                  padding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 0.0),
+                  itemCount: SearchResults.length,
+                  itemBuilder: (context, index) {
+                    return LoopCard(loopData: SearchResults[index]);
+                  },
                 ),
               )
             ],

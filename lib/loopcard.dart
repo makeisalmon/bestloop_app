@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:bestloop_app/components/waveform.dart';
 import 'package:bestloop_app/main.dart';
 import 'package:bestloop_app/pages/discover_page.dart';
 import 'package:bestloop_app/pages/search_page.dart';
@@ -6,7 +7,7 @@ import 'package:bestloop_app/sound_services/loop_sound_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'loop_files/loop_data.dart';
-import 'tag_widget.dart';
+import 'components/tag_widget.dart';
 
 const discoverPageIndex = 1;
 
@@ -92,17 +93,12 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
                             fit: BoxFit.cover,
                           ),
                         ),
-                        child: AnimatedOpacity(
-                          opacity: _isExpanded ? 1.0 : 0.0,
-                          duration: const Duration(milliseconds: 500),
-                          child: Align(
-                            alignment: Alignment.bottomCenter,
-                            child: SvgPicture.asset(
-                              'assets/waveform.svg',
-                              height: 20.0,
-                              color: Colors.white, // Make the waveform solid white
-                              fit: BoxFit.contain,
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 33.0),
+                          child: AnimatedOpacity(
+                            opacity: _isExpanded ? 1.0 : 0.0,
+                            duration: const Duration(milliseconds: 500),
+                            child: SineWaveRectangles(isSmall: true,),
                           ),
                         ),
                       ),

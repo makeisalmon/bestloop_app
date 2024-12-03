@@ -54,6 +54,7 @@ class _SmallTagState extends State<SmallTag> {
         maxHeight: widget.maxTagViewHeight,
       ),
       child: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Wrap(
           alignment: WrapAlignment.start,
           spacing: 6.0, // Adjust for spacing between entries horizontally

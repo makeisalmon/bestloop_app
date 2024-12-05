@@ -26,9 +26,11 @@ class LoopSoundService {
   static ValueNotifier<double> visualAmplitude = ValueNotifier<double>(0.0);
   static String loopSoundPath = "";
   static AudioPlayer? _audioPlayer;
+  static bool isPlaying = false;
 
   static void changeLoop(String assetPath) {
     _audioPlayer?.pause();
+    isPlaying = false;
     _audioPlayer = null;
     loopSoundPath = assetPath;
   }
@@ -48,9 +50,11 @@ class LoopSoundService {
       );
     }
     _audioPlayer!.play();
+    isPlaying = true;
   }
   static Future<void> pauseLoop() async {
     _audioPlayer?.pause();
+    isPlaying = false;
   }
 }
 

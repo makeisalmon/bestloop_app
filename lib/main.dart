@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:bestloop_app/loop_files/loop_data_dictionary.dart';
 import 'package:bestloop_app/pages/discover_page.dart';
 import 'package:bestloop_app/debug.dart';
 import 'package:bestloop_app/pages/create_page.dart';
@@ -14,7 +15,12 @@ import 'package:flutter/material.dart';
 import 'pages/profile_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(WidgetsApp(
+    color: Colors.black12,
+    builder: (context, child) {return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const MyApp());},
+    ));
 }
 
 /*
@@ -28,6 +34,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      checkerboardOffscreenLayers: false,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       
@@ -77,7 +84,7 @@ class MyApp extends StatelessWidget {
           }),
         ),
       ),
-      home: SignIn(),//GlobalScaffold(title: "Home",key: globalScaffoldKey,),
+      home: GlobalScaffold(title: "Home",key: globalScaffoldKey,),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:bestloop_app/loop_files/loop_data.dart';
 import 'package:bestloop_app/shared.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/gradient_borders.dart';
@@ -15,6 +16,7 @@ class SmallTag extends StatefulWidget {
     this.deletableTag = true,
     this.onDeleteTag,
     this.tagTitle,
+    this.loopData,
   });
 
   final List<String> tags;
@@ -25,6 +27,7 @@ class SmallTag extends StatefulWidget {
   final double minTagViewHeight;
   final DeleteTag<int>? onDeleteTag;
   final TagTitle<String>? tagTitle;
+  final LoopData? loopData;
 
   @override
   _SmallTagState createState() => _SmallTagState();
@@ -61,22 +64,22 @@ class _SmallTagState extends State<SmallTag> {
   List<Widget> buildTags() {
     List<Widget> tags = <Widget>[];
     for (int i = 0; i < widget.tags.length; i++) {
-      tags.add(createTag(i, widget.tags[i]));
+      tags.add(createTag(i, widget.tags[i], widget.loopData));
     }
     // Add the plus icon tag at the end
     tags.add(createAddTag());
     return tags;
   }
 
-  Widget createTag(int index, String tagTitle) {
+  Widget createTag(int index, String tagTitle, loopData) {
     return InkWell(
       onTap: () {
         setState(() {
-          if (tagTitle != "+") {
-            if (selectedTagIndices.contains(index)) {
-              selectedTagIndices.remove(index);
+          if (tagTitle != "+" && loopData != null) {
+            if (widget.loopData!.selectedTags.contains(tagTitle)) {
+              widget.loopData!.selectedTags.remove(tagTitle);
             } else {
-              selectedTagIndices.add(index);
+              widget.loopData!.selectedTags.add(tagTitle);
             }
             selectedTagIndex = index;
             print(index);
@@ -88,7 +91,7 @@ class _SmallTagState extends State<SmallTag> {
         padding: const EdgeInsets.symmetric(horizontal: 4.0), // Adjust left padding of text
         decoration: BoxDecoration(
           border: GradientBoxBorder(
-            gradient: selectedTagIndices.contains(index)
+            gradient: widget.loopData != null && widget.loopData!.selectedTags.contains(tagTitle)
                 ? LinearGradient(colors: [const Color.fromARGB(255, 30, 233, 172), const Color.fromARGB(255, 46, 10, 177)])
                 : BestLoopColors.primaryGradient,
             width: 1, // Line width
@@ -141,6 +144,7 @@ class _SmallTagState extends State<SmallTag> {
                   onPressed: () {
                     setState(() {
                       widget.tags.add(newTag);
+                      widget.loopData?.selectedTags.add(newTag);
                     });
                     Navigator.of(context).pop();
                   },

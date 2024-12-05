@@ -1,3 +1,4 @@
+import 'package:bestloop_app/sound_services/loop_sound_service.dart';
 import 'package:flutter/material.dart';
 import '../artist_info.dart';
 import '../loop_card_list.dart';
@@ -32,6 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    LoopSoundService.pauseLoop();
     return Scaffold(
       body: Stack(
         children: [

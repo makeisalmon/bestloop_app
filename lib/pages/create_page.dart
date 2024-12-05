@@ -59,6 +59,7 @@ class _CreatePageState extends State<CreatePage> {
 void _upload() {
   if (audioPath != null && imagePath != null && licensing != null) {
     final newEntry = LoopData(
+      selectedTags: tags,
       imagePath: imagePath!,
       loopTitle: loopTitle,
       artistName: 'Kyler', // Changed from 'Artist' to 'Kyler'
@@ -206,6 +207,7 @@ void _upload() {
           Padding(
             padding: const EdgeInsets.only(left: 24.0, right: 12.0, bottom: 12),
             child: SmallTag(
+              loopData: null,
               tags: tags,
               minTagViewHeight: 0,
               maxTagViewHeight: 150,

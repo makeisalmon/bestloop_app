@@ -5,6 +5,7 @@ import 'package:bestloop_app/loop_card_list.dart';
 import 'package:bestloop_app/loop_files/loop_data_dictionary.dart';
 import 'package:bestloop_app/loopcard.dart';
 import 'package:bestloop_app/shared.dart';
+import 'package:bestloop_app/sound_services/loop_sound_service.dart';
 import 'package:flutter/material.dart';
 
 List<String> audioKeywords = [
@@ -93,6 +94,7 @@ class _SearchPageState extends State<SearchPage> {
                   IconButton(
                     icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
                     onPressed: () {
+                      LoopSoundService.pauseLoop();
                       Navigator.pop(context);
                     },
                   ),

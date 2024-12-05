@@ -15,7 +15,7 @@ final Map<String, LoopData> loopDataDictionary = {
     dislikes: 10,
     tags: ['chill', 'vibes', 'relax', 'asdf', 'asdf', 'extremely long tag', 'shorter tag', 'short tag', 'vst'],
     location: 'Baton Rouge',
-    topComment: 'This is so relaxing! my name is walter hartel white, i live at ',
+    topComment: 'This is so relaxing! My name is walter hartel white, i live at ',
   ),
   
   'Dog Beats': LoopData(

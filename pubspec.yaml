@@ -75,6 +75,8 @@ flutter:
     - assets/IMG_4099.jpg
     - assets/me.JPG
     - assets/leavingroom.jpg
+   - assets/
+   - assets/wavfiles/dog.wav
     - assets/DSCF3834.JPEG
     - assets/IMG_0276.JPG
     - assets/IMG_7256.PNG
@@ -106,6 +108,7 @@ flutter:
     # - assets/IMG_6694 (1).jpg
     # - assets/Ellipse 12 (1).png
 
+    - assets/Ellipse 12 (1).png
     
 
 

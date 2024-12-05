@@ -3,6 +3,7 @@ import '../artist_info.dart';
 import '../loop_card_list.dart';
 import '../loop_files/loop_data.dart';
 import '../loop_files/loop_data_dictionary.dart'; // Import the dictionary
+import '../loop_files/uploads.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -13,6 +14,15 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String _activeTab = "Favorites";
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final String? initialTab = ModalRoute.of(context)?.settings.arguments as String?;
+    if (initialTab != null) {
+      _activeTab = initialTab;
+    }
+  }
 
   void _setActiveTab(String tab) {
     setState(() {
@@ -83,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: LoopList(
                           name: "Uploads",
                           gradientColors: [const Color(0xFFB500B5), const Color(0xFF340022)],
-                          loopDataList: loopDataDictionary.values.toList(),
+                          loopDataList: uploads.values.toList(),
                         ),
                       ),
                     if (_activeTab == "Following")

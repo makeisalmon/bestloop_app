@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:bestloop_app/components/waveform.dart';
 import 'package:bestloop_app/main.dart';
@@ -106,7 +107,9 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8.0),
                           image: DecorationImage(
-                            image: AssetImage(widget.loopData.imagePath),
+                            image: widget.loopData.imagePath.startsWith('assets/')
+                                ? AssetImage(widget.loopData.imagePath)
+                                : FileImage(File(widget.loopData.imagePath)) as ImageProvider,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -180,7 +183,7 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
                               ),
                               child: Row(
                                 children: [
-                                  SizedBox(height:24),
+                                  SizedBox(height: 24),
                                   Container(
                                     margin: const EdgeInsets.only(top: 2.0, bottom: 4.0, right: 1.5, left: 3.0),
                                     width: 21.0,
@@ -308,7 +311,7 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
                               width: 51.0,
                               height: 24.0,
                               margin: const EdgeInsets.only(right: 16.0, left: 16.0, top: 8.0),
-                              color: Colors.white.withOpacity(0.0),
+ color: Colors.white.withOpacity(0.0),
                               child: IconButton(
                                 padding: EdgeInsets.zero,
                                 constraints: const BoxConstraints(),
@@ -346,27 +349,27 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
                     padding: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.1),
-                       borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  child: Row(
-                    children: [
-                      const CircleAvatar(
-                        radius: 12.0,
-                        backgroundColor: Colors.white,
-                      ),
-                      const SizedBox(width: 8.0),
-                      Expanded(
-                        child: Text(
-                          widget.loopData.topComment,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
+                    child: Row(
+                      children: [
+                        const CircleAvatar(
+                          radius: 12.0,
+                          backgroundColor: Colors.white,
                         ),
-                      ),
-                    ],
+                        const SizedBox(width: 8.0),
+                        Expanded(
+                          child: Text(
+                            widget.loopData.topComment,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

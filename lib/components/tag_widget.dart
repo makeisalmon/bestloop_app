@@ -4,15 +4,7 @@ import 'package:gradient_borders/gradient_borders.dart';
 
 typedef DeleteTag<T> = void Function(T index);
 typedef TagTitle<String> = Widget Function(String tag);
-/*
-  HEAVY HELP FROM https://knnx.medium.com/how-to-build-a-tags-widget-in-flutter-7944cf870476 
 
-  Add functionality postponed until figured out in general. Issue with adding icon is spacing with text, which to my knowledge cant
-  be fixed. This is okay, because to my knowledge the only time the add button is needed is at the end, not at every widget. 
-  Comments show where to edit to get changes. this.maxTagView acts as the box, can be adjusted as necessary.
-
-  My idea to get full functionality it to just always make the last tag an add button, which onpressed creates a tag. Who knows...
-*/
 class SmallTag extends StatefulWidget {
   SmallTag({
     required this.tags,
@@ -23,7 +15,7 @@ class SmallTag extends StatefulWidget {
     this.deletableTag = true,
     this.onDeleteTag,
     this.tagTitle,
-  }) : assert(tags.isNotEmpty, 'Tags can\'t be empty\nProvide the list of tags');
+  });
 
   final List<String> tags;
   final Color tagBackgroundColor;
@@ -71,6 +63,8 @@ class _SmallTagState extends State<SmallTag> {
     for (int i = 0; i < widget.tags.length; i++) {
       tags.add(createTag(i, widget.tags[i]));
     }
+    // Add the plus icon tag at the end
+    tags.add(createAddTag());
     return tags;
   }
 
@@ -79,26 +73,24 @@ class _SmallTagState extends State<SmallTag> {
       onTap: () {
         setState(() {
           if (tagTitle != "+") {
-            if(selectedTagIndices.contains(index)) {
+            if (selectedTagIndices.contains(index)) {
               selectedTagIndices.remove(index);
             } else {
               selectedTagIndices.add(index);
             }
             selectedTagIndex = index;
             print(index);
-          } else {
-            print("I must ADD!");
           }
-        }
-        );
+        });
       },
       child: Container(
         height: 16.0,
         padding: const EdgeInsets.symmetric(horizontal: 4.0), // Adjust left padding of text
         decoration: BoxDecoration(
           border: GradientBoxBorder(
-            gradient: selectedTagIndices.contains(index) ? LinearGradient(colors: [const Color.fromARGB(255, 30, 233, 172), const Color.fromARGB(255, 46, 10, 177)])
-             : BestLoopColors.primaryGradient,
+            gradient: selectedTagIndices.contains(index)
+                ? LinearGradient(colors: [const Color.fromARGB(255, 30, 233, 172), const Color.fromARGB(255, 46, 10, 177)])
+                : BestLoopColors.primaryGradient,
             width: 1, // Line width
           ),
           borderRadius: BorderRadius.circular(8), // Amount of circleness
@@ -106,11 +98,69 @@ class _SmallTagState extends State<SmallTag> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            widget.tagTitle == null 
-              ? Text(tagTitle, style: Theme.of(context).textTheme.bodySmall)
-              : widget.tagTitle!(tagTitle),
+            widget.tagTitle == null
+                ? Text(tagTitle, style: Theme.of(context).textTheme.bodySmall)
+                : widget.tagTitle!(tagTitle),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget createAddTag() {
+    return InkWell(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            String newTag = '';
+            return AlertDialog(
+              backgroundColor: Colors.grey[800], // Grey background
+              title: Text('Add Tag', style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
+              content: TextField(
+                onChanged: (value) {
+                  newTag = value;
+                },
+                style: TextStyle(color: Colors.white), // Dark text color
+                decoration: InputDecoration(
+                  hintText: "Enter tag text",
+                  hintStyle: TextStyle(color: Colors.white54),
+                  filled: true,
+                  fillColor: Colors.grey[700], // Dark text box
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cancel', style: TextStyle(color: Colors.white)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text('Add', style: TextStyle(color: Colors.white)),
+                  onPressed: () {
+                    setState(() {
+                      widget.tags.add(newTag);
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+      child: Container(
+        height: 16.0,
+        width: 16.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: GradientBoxBorder(
+            gradient: BestLoopColors.primaryGradient,
+            width: 1, // Line width
+          ),
+        ),
+        child: Icon(Icons.add, size: 12.0, color: Colors.white),
       ),
     );
   }

@@ -67,6 +67,7 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
           if (SearchPage.isActive) {
             Navigator.pop(context);
           }
+          DiscoverPage.loopList = [widget.loopData];
           globalScaffoldKey.currentState?.updatePageIndex(discoverPageIndex);
         }
       
@@ -163,6 +164,7 @@ class _LoopCardState extends State<LoopCard> with SingleTickerProviderStateMixin
                             ),
                             const SizedBox(height: 4),
                             SmallTag(
+                              loopData: widget.loopData,
                               tags: widget.loopData.tags,
                               maxTagViewHeight: _isExpanded ? 36 : 16,
                             ),

@@ -1,4 +1,5 @@
 class LoopData {
+  final List<String> selectedTags;
   final String imagePath;
   final String loopTitle;
   final String artistName;
@@ -15,6 +16,7 @@ class LoopData {
   final String topComment;
 
   LoopData({
+    required this.selectedTags,
     required this.imagePath,
     required this.loopTitle,
     required this.artistName,

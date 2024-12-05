@@ -2,6 +2,7 @@ import 'loop_data.dart';
 
 final Map<String, LoopData> uploads = {
   'Chill Vibes': LoopData(
+    selectedTags: [],
     imagePath: 'assets/leavingroom.jpg',
     loopTitle: 'CHLL',
     artistName: 'Kyler',
@@ -19,6 +20,7 @@ final Map<String, LoopData> uploads = {
   ),
   
   'Unsure': LoopData(
+    selectedTags: [],
     imagePath: 'assets/IMG_4099.jpg',
     loopTitle: 'Unsure',
     artistName: 'Kyler',
@@ -36,6 +38,7 @@ final Map<String, LoopData> uploads = {
   ),
 
     'Midwest': LoopData(
+    selectedTags: [],
     imagePath: 'assets/IMG_7924.jpg',
     loopTitle: 'Midwest Emo title that is unecessarily long',
     artistName: 'Kyler',

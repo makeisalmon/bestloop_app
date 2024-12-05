@@ -67,6 +67,7 @@ flutter:
   assets:
   - assets/wavfiles/
   - assets/
+  - assets/imgs/
   
   # DSCF3834.JPEG
   # - assets/IMG_0276.JPG

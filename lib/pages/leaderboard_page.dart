@@ -51,7 +51,7 @@ class LeaderboardPage extends StatelessWidget {
               child: LoopList(
                 name: 'Top Worldwide This Week',
                 gradientColors: const [Color(0xFFB500B5), Color(0xFF4F004F)],
-                loopDataList: loopDataDictionary.values.toList(),
+                loopDataList: topLoops,
               ),
             ),
             const SizedBox(height: 8.0), 
@@ -59,7 +59,7 @@ class LeaderboardPage extends StatelessWidget {
               child: LoopList(
                 name: 'Popular Effect Loops',
                 gradientColors: const [Color(0xFF6100B5), Color(0xFF4F004F)],
-                loopDataList: loopDataDictionary.values.toList(),
+                loopDataList: topEffects,
               ),
             ),
             const SizedBox(height: 8.0), 

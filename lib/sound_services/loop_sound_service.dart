@@ -28,13 +28,13 @@ class LoopSoundService {
   static AudioPlayer? _audioPlayer;
 
   static void changeLoop(String assetPath) {
-    _audioPlayer!.pause();
+    _audioPlayer?.pause();
     _audioPlayer = null;
     loopSoundPath = assetPath;
   }
 
   static Future<void> playLoop() async {
-    if (_audioPlayer == null && _audioPlayer!.isPlaying) {
+    if (_audioPlayer == null) {
       File fileToPlay = await getAssetFile(loopSoundPath);
       _audioPlayer = AudioPlayer(
         context: AudioDeviceContext(backends: [AudioDeviceBackend.aaudio]),
@@ -46,8 +46,8 @@ class LoopSoundService {
           )
         ),
       );
-      _audioPlayer!.play();
     }
+    _audioPlayer!.play();
   }
   static Future<void> pauseLoop() async {
     _audioPlayer?.pause();

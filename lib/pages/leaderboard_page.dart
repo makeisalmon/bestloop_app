@@ -1,5 +1,6 @@
 import 'package:bestloop_app/pages/search_page.dart';
 import 'package:bestloop_app/shared.dart';
+import 'package:bestloop_app/sound_services/loop_sound_service.dart';
 import 'package:flutter/material.dart';
 import 'package:bestloop_app/loop_card_list.dart';
 import 'package:bestloop_app/loop_files/loop_data.dart';
@@ -10,10 +11,11 @@ class LeaderboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LoopSoundService.pauseLoop();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-        child: Column(
+        child: ListView(
           children: [
             Padding(
               padding: const EdgeInsets.all(24.0),
@@ -45,29 +47,24 @@ class LeaderboardPage extends StatelessWidget {
                 ],
               ),
             ),
-            Expanded(
+            SizedBox(
+              height: 566,
               child: LoopList(
                 name: 'Top Loops',
-                gradientColors: [Colors.red, Colors.orange],
+                gradientColors: const [Color(0xFFB500B5), Color(0xFF4F004F)],
                 loopDataList: loopDataDictionary.values.toList(),
               ),
             ),
             const SizedBox(height: 8.0), 
-            Expanded(
+            SizedBox(
+              height: 566,
               child: LoopList(
-                name: 'Popular Loops',
-                gradientColors: [Colors.blue, Colors.purple],
+                name: 'Featured Worldwide',
+                gradientColors: const [Color(0xFF6100B5), Color(0xFF4F004F)],
                 loopDataList: loopDataDictionary.values.toList(),
               ),
             ),
             const SizedBox(height: 8.0), 
-            Expanded(
-              child: LoopList(
-                name: 'New Loops',
-                gradientColors: [Colors.green, Colors.red],
-                loopDataList: loopDataDictionary.values.toList(),
-              ),
-            ),
           ],
         ),
       ),

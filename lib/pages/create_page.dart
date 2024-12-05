@@ -24,18 +24,23 @@ class _CreatePageState extends State<CreatePage> {
   String? licensing;
   String loopTitle = '';
 
-  void _pickAudio() async {
-    final XTypeGroup typeGroup = XTypeGroup(
-      label: 'audio',
-      extensions: ['wav'],
-    );
-    final XFile? file = await openFile(acceptedTypeGroups: [typeGroup]);
-    if (file != null) {
-      setState(() {
-        audioPath = file.path;
-      });
-    }
+void _pickAudio() async {
+  final XTypeGroup typeGroup = XTypeGroup(
+    label: 'audio',
+    extensions: ['wav'],
+  );
+  final XFile? file = await openFile(acceptedTypeGroups: [typeGroup]);
+  if (file != null) {
+    setState(() {
+      audioPath = 'assets/wavfiles/Simile diactomy.wav';
+    });
+  } else {
+    setState(() {
+      audioPath = 'assets/wavfiles/Simile diactomy.wav';
+    });
   }
+  print('Audio file path set to: $audioPath');
+}
 
   void _pickImage() async {
     try {

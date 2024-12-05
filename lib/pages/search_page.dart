@@ -95,6 +95,7 @@ class _SearchPageState extends State<SearchPage> {
                   IconButton(
                     icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
                     onPressed: () {
+                      LoopSoundService.pauseLoop();
                       Navigator.pop(context);
                     },
                   ),

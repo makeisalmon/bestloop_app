@@ -11,7 +11,7 @@ import 'package:bestloop_app/pages/sign_in.dart';
 // import 'package:bestloop_app/pages/leaderboard_page.dart';
 // import 'package:bestloop_app/pages/profile_page.dart';
 import 'package:flutter/material.dart';
-
+import 'pages/sign_in.dart';
 import 'pages/profile_page.dart';
 
 void main() {
